@@ -19,21 +19,29 @@ package org.obsidiantoaster.quickstart.service;
 public class Fruit {
 
 	private long id;
-	private String type;
+	private String name;
 
 	public Fruit() {
 	}
 
 	public Fruit(long id, String type) {
 		this.id = id;
-		this.type = type;
+		this.name = type;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public String getType() {
-		return type;
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

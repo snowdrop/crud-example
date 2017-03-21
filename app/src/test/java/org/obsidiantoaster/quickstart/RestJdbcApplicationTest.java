@@ -38,7 +38,7 @@ public class RestJdbcApplicationTest {
     @Test
     public void callServiceTest() {
         Fruit fruit = template.getForObject("http://localhost:" + port + "/fruits/1", Fruit.class);
-        Assert.assertEquals("Apple", fruit.getType());
+        Assert.assertEquals("Apple", fruit.getName());
         Assert.assertEquals(1, fruit.getId());
     }
 

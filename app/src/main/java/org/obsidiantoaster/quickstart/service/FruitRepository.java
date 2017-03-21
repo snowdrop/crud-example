@@ -28,7 +28,7 @@ public class FruitRepository {
 
 	private JdbcTemplate jdbcTemplate;
 
-	private RowMapper<Fruit> rowMapper = (rs, rowNum) -> new Fruit(rs.getInt("id"), rs.getString("ftype"));
+	private RowMapper<Fruit> rowMapper = (rs, rowNum) -> new Fruit(rs.getInt("id"), rs.getString("fname"));
 
 	@Autowired
 	public FruitRepository(JdbcTemplate jdbcTemplate) {
@@ -36,7 +36,7 @@ public class FruitRepository {
 	}
 
 	public Fruit findById(long id) {
-		return jdbcTemplate.queryForObject("SELECT * FROM fruit WHERE id=" + id, rowMapper);
+		return jdbcTemplate.queryForObject("SELECT * FROM fruit WHERE id = " + id, rowMapper);
 	}
 
 	public List<Fruit> list() {
@@ -44,6 +44,16 @@ public class FruitRepository {
 	}
 
 	public void insert(Fruit fruit) {
-		jdbcTemplate.update("INSERT INTO fruit (ftype) VALUES (?)", fruit.getType());
+		jdbcTemplate.update("INSERT INTO fruit (fname) VALUES (?)", fruit.getName());
+	}
+
+	public boolean update(Fruit fruit) {
+		int update = jdbcTemplate.update("UPDATE fruit SET fname = ? WHERE id = ? ", fruit.getName(), fruit.getId());
+		return (update > 0);
+	}
+
+	public boolean delete(long id) {
+		int update = jdbcTemplate.update("DELETE FROM fruit WHERE id = " + id);
+		return (update > 0);
 	}
 }
