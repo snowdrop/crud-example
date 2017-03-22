@@ -1,4 +1,4 @@
-package org.obsidiantoaster.quickstart.service;
+package org.obsidiantoaster.quickstart.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -18,6 +18,7 @@ package org.obsidiantoaster.quickstart.service;
 
 import java.util.List;
 
+import org.obsidiantoaster.quickstart.error.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

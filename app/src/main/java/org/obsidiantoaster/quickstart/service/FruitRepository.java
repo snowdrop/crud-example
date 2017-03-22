@@ -40,7 +40,7 @@ public class FruitRepository {
 	}
 
 	public List<Fruit> list() {
-    	return jdbcTemplate.query("SELECT * FROM fruit", rowMapper);
+		return jdbcTemplate.query("SELECT * FROM fruit", rowMapper);
 	}
 
 	public void insert(Fruit fruit) {
