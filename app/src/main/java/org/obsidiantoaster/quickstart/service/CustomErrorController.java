@@ -68,7 +68,11 @@ public class CustomErrorController extends AbstractErrorController {
 	private Integer code(HttpServletRequest request) {
 		RequestAttributes requestAttributes = new ServletRequestAttributes(request);
 		Throwable ex = errorAttributes.getError(requestAttributes);
-		ErrorCode code = AnnotatedElementUtils.findMergedAnnotation(ex.getClass(), ErrorCode.class);
-		return (code != null ? code.value() : null);
+		if (ex != null) {
+			ErrorCode code = AnnotatedElementUtils.findMergedAnnotation(ex.getClass(), ErrorCode.class);
+			return (code != null ? code.value() : null);
+		} else {
+			return -1; // system / unknown error?
+		}
 	}
 }
