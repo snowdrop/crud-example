@@ -24,7 +24,7 @@
         <version>21</version>
     </parent>
     <groupId>org.obsidiantoaster.quickstart</groupId>
-    <artifactId>rest-jdbc-springboot-parent</artifactId>
+    <artifactId>springboot-rest-jdbc-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -97,7 +97,7 @@
             <!-- This -->
             <dependency>
                 <groupId>org.obsidiantoaster.quickstart</groupId>
-                <artifactId>rest-jdbc-springboot</artifactId>
+                <artifactId>springboot-rest-jdbc</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- PostgreSQL -->

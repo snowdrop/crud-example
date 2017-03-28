@@ -1,8 +1,10 @@
-DROP TABLE fruit;
+DROP TABLE IF EXISTS known_fruits;
 
-CREATE TABLE fruit (
+CREATE TABLE known_fruits (
   id SERIAL NOT NULL PRIMARY KEY,
   fname VARCHAR(256)
 );
 
-INSERT INTO fruit (fname) VALUES ('Apple');
+INSERT INTO known_fruits(fname) VALUES ('Cherry');
+INSERT INTO known_fruits(fname) VALUES ('Apple');
+INSERT INTO known_fruits(fname) VALUES ('Banana');

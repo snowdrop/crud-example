@@ -2,4 +2,4 @@
 kind: Route
 spec:
   to:
-    name: "rest-jdbc-springboot"
+    name: "springboot-rest-jdbc"

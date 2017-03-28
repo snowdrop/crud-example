@@ -36,24 +36,24 @@ public class FruitRepository {
 	}
 
 	public Fruit findById(long id) {
-		return jdbcTemplate.queryForObject("SELECT * FROM fruit WHERE id = " + id, rowMapper);
+		return jdbcTemplate.queryForObject("SELECT * FROM known_fruits WHERE id = " + id, rowMapper);
 	}
 
 	public List<Fruit> list() {
-		return jdbcTemplate.query("SELECT * FROM fruit", rowMapper);
+		return jdbcTemplate.query("SELECT * FROM known_fruits", rowMapper);
 	}
 
 	public void insert(Fruit fruit) {
-		jdbcTemplate.update("INSERT INTO fruit (fname) VALUES (?)", fruit.getName());
+		jdbcTemplate.update("INSERT INTO known_fruits (fname) VALUES (?)", fruit.getName());
 	}
 
 	public boolean update(Fruit fruit) {
-		int update = jdbcTemplate.update("UPDATE fruit SET fname = ? WHERE id = ? ", fruit.getName(), fruit.getId());
+		int update = jdbcTemplate.update("UPDATE known_fruits SET fname = ? WHERE id = ? ", fruit.getName(), fruit.getId());
 		return (update > 0);
 	}
 
 	public boolean delete(long id) {
-		int update = jdbcTemplate.update("DELETE FROM fruit WHERE id = " + id);
+		int update = jdbcTemplate.update("DELETE FROM known_fruits WHERE id = " + id);
 		return (update > 0);
 	}
 }
