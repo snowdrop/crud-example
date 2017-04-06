@@ -44,7 +44,7 @@ public class FruitRepository {
 	}
 
 	public void insert(Fruit fruit) {
-		jdbcTemplate.update("INSERT INTO known_fruits (fname) VALUES (?)", fruit.getName());
+		jdbcTemplate.update("INSERT INTO known_fruits (id, fname) VALUES (?, ?)", fruit.getId(), fruit.getName());
 	}
 
 	public boolean update(Fruit fruit) {
@@ -55,5 +55,9 @@ public class FruitRepository {
 	public boolean delete(long id) {
 		int update = jdbcTemplate.update("DELETE FROM known_fruits WHERE id = " + id);
 		return (update > 0);
+	}
+
+	public boolean delete() {
+		return jdbcTemplate.update("DELETE FROM known_fruits") > 0;
 	}
 }
