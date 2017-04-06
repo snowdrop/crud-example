@@ -1,12 +1,11 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
+ * Copyright 2016-2017 Red Hat, Inc, and individual contributors.
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package io.openshift.booster;
 
 import java.util.Collections;
@@ -23,7 +23,6 @@ import com.jayway.restassured.http.ContentType;
 import io.openshift.booster.service.Fruit;
 import io.openshift.booster.service.FruitRepository;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +36,11 @@ import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.isEmptyString;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RestJdbcApplicationTest {
+public class BoosterApplicationTest {
 
     @Value("${local.server.port}")
     private int port;
@@ -50,22 +50,23 @@ public class RestJdbcApplicationTest {
 
     @Before
     public void beforeTest() {
+        fruitRepository.deleteAll();
         RestAssured.baseURI = String.format("http://localhost:%d/api/fruits", port);
-        initDatabase();
     }
 
     @Test
     public void testGetAll() {
+        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
+        Fruit apple = fruitRepository.save(new Fruit("Apple"));
         when().get()
                 .then()
                 .statusCode(200)
-                .body("id", hasItems(1, 2, 3))
-                .body("name", hasItems("Cherry", "Apple", "Banana"));
+                .body("id", hasItems(cherry.getId(), apple.getId()))
+                .body("name", hasItems(cherry.getName(), apple.getName()));
     }
 
     @Test
     public void testGetEmptyArray() {
-        fruitRepository.delete();
         when().get()
                 .then()
                 .statusCode(200)
@@ -74,35 +75,33 @@ public class RestJdbcApplicationTest {
 
     @Test
     public void testGetOne() {
-        when().get("/1")
+        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
+        when().get(String.valueOf(cherry.getId()))
                 .then()
                 .statusCode(200)
-                .body("id", is(1))
-                .body("name", is("Cherry"));
+                .body("id", is(cherry.getId()))
+                .body("name", is(cherry.getName()));
     }
 
-    @Ignore
     @Test
     public void testGetNotExisting() {
-        when().get("/0")
+        when().get("0")
                 .then()
                 .statusCode(404);
     }
 
-    @Ignore
     @Test
     public void testPost() {
         given().contentType(ContentType.JSON)
-                .body(Collections.singletonMap("name", "Lemon"))
+                .body(Collections.singletonMap("name", "Cherry"))
                 .when()
                 .post()
                 .then()
                 .statusCode(201)
                 .body("id", not(isEmptyString()))
-                .body("name", is("Lemon"));
+                .body("name", is("Cherry"));
     }
 
-    @Ignore
     @Test
     public void testPostWithWrongPayload() {
         given().contentType(ContentType.JSON)
@@ -113,14 +112,13 @@ public class RestJdbcApplicationTest {
                 .statusCode(422);
     }
 
-    @Ignore
     @Test
     public void testPostWithNonJsonPayload() {
         given().contentType(ContentType.XML)
                 .when()
                 .post()
                 .then()
-                .statusCode(400);
+                .statusCode(415); // TODO spec says 400
     }
 
     @Test
@@ -132,16 +130,16 @@ public class RestJdbcApplicationTest {
                 .statusCode(400);
     }
 
-    @Ignore
     @Test
     public void testPut() {
+        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
         given().contentType(ContentType.JSON)
                 .body(Collections.singletonMap("name", "Lemon"))
                 .when()
-                .put("/1")
+                .put(String.valueOf(cherry.getId()))
                 .then()
                 .statusCode(200)
-                .body("id", is(1))
+                .body("id", is(cherry.getId()))
                 .body("name", is("Lemon"));
 
     }
@@ -156,46 +154,44 @@ public class RestJdbcApplicationTest {
                 .statusCode(404);
     }
 
-    @Ignore
     @Test
     public void testPutWithWrongPayload() {
+        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
         given().contentType(ContentType.JSON)
                 .body(Collections.singletonMap("id", 0))
                 .when()
-                .put()
+                .put(String.valueOf(cherry.getId()))
                 .then()
                 .statusCode(422);
     }
 
-    @Ignore
     @Test
     public void testPutWithNonJsonPayload() {
+        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
         given().contentType(ContentType.XML)
                 .when()
-                .put()
+                .put(String.valueOf(cherry.getId()))
                 .then()
-                .statusCode(400);
+                .statusCode(415); // TODO spec says 400
     }
 
-    @Ignore
     @Test
     public void testPutWithEmptyPayload() {
+        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
         given().contentType(ContentType.JSON)
                 .when()
-                .put()
+                .put(String.valueOf(cherry.getId()))
                 .then()
                 .statusCode(400);
     }
 
-    @Ignore
     @Test
     public void testDelete() {
-        when().delete("/1")
+        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
+        when().delete(String.valueOf(cherry.getId()))
                 .then()
                 .statusCode(204);
-        when().get("/1")
-                .then()
-                .statusCode(404);
+        assertFalse(fruitRepository.exists(cherry.getId()));
     }
 
     @Test
@@ -203,13 +199,6 @@ public class RestJdbcApplicationTest {
         when().delete("/0")
                 .then()
                 .statusCode(404);
-    }
-
-    private void initDatabase() {
-        fruitRepository.delete();
-        fruitRepository.insert(new Fruit(1, "Cherry"));
-        fruitRepository.insert(new Fruit(2, "Apple"));
-        fruitRepository.insert(new Fruit(3, "Banana"));
     }
 
 }

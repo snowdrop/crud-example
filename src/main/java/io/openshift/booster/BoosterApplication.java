@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.service;
+package io.openshift.booster;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public interface FruitRepository extends CrudRepository<Fruit, Integer> {
+@SpringBootApplication
+public class BoosterApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(BoosterApplication.class, args);
+    }
 }

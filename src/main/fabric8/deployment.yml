@@ -8,3 +8,6 @@ spec:
               path: /api/fruits
               port: 8080
               scheme: HTTP
+          env:
+            - name: JAVA_OPTIONS
+              value: "-Dspring.profiles.active=openshift"
