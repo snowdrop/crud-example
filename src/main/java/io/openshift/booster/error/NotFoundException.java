@@ -1,4 +1,4 @@
-package org.obsidiantoaster.quickstart.error;
+package io.openshift.booster.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

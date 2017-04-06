@@ -1,4 +1,4 @@
-package org.obsidiantoaster.quickstart.error;
+package io.openshift.booster.error;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

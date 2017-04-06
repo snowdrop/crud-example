@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.obsidiantoaster.quickstart.service;
+package io.openshift.booster.service;
 
 import java.util.List;
 
-import org.obsidiantoaster.quickstart.error.NotFoundException;
+import io.openshift.booster.error.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

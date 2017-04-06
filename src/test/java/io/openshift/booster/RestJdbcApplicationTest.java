@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.obsidiantoaster.quickstart;
+package io.openshift.booster;
 
-import org.obsidiantoaster.quickstart.service.Fruit;
+import io.openshift.booster.service.Fruit;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
