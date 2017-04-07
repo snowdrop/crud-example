@@ -18,12 +18,12 @@ HTTP API, CRUD, Database
 
 # Prerequisites
 
-To get started with this quickstart you'll need the following prerequisites:
+To get started with this booster you'll need the following prerequisites:
 
 Name | Description | Version
 --- | --- | ---
 [java][1] | Java JDK | 8
-[maven][2] | Apache Maven | 3.2.x
+[maven][2] | Apache Maven | 3.3.9
 [oc][3] | OpenShift Client Tools | v3.3.x
 [git][4] | Git version management | 2.x
 
@@ -32,22 +32,12 @@ Name | Description | Version
 [3]: https://docs.openshift.com/enterprise/3.2/cli_reference/get_started_cli.html
 [4]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-# Build the Project
-
-The project uses Spring Boot to create and package the service.
-
-Execute the following maven command:
-
-```
-mvn clean install
-```
-
-# Launch and test
+# Run Locally
 
 1. Run the following command to start the maven goal of Spring Boot:
 
     ```
-    mvn spring-boot:run
+    mvn clean spring-boot:run
     ```
 
 1. If the application launched without error, use the following command to access the web interface to view and modify the data in the database:
@@ -89,16 +79,19 @@ mvn clean install
 4. Use the Fabric8 Maven Plugin to launch the S2I process on the OpenShift Online machine & start the pod.
 
     ```
-    mvn clean fabric8:deploy -Popenshift  -DskipTests
+    mvn clean fabric8:deploy -Popenshift
     ```
 
 5. Get the route url.
 
     ```
-    oc get route/springboot-rest-jdbc
-    NAME              HOST/PORT                                          PATH      SERVICE                TERMINATION   LABELS
-    springboot-rest-jdbc   <HOST_PORT_ADDRESS>             springboot-rest-jdbc:8080
+    oc get route/spring-boot-crud
     ```
+    
+    NAME | HOST/PORT | PATH | SERVICES | PORT | TERMINATION
+    ---- | --------- | ---- | -------- | ---- | -----------
+    spring-boot-crud | <HOST_PORT_ADDRESS> | | spring-boot-crud | 8080 | 
+    
 
 6. Access the web interface to modify the data in the postgres database.
     ```
