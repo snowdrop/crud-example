@@ -16,8 +16,15 @@
 
 package io.openshift.booster;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.DefaultErrorAttributes;
+import org.springframework.boot.autoconfigure.web.ErrorAttributes;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.context.request.RequestAttributes;
 
 @SpringBootApplication
 public class BoosterApplication {
@@ -25,4 +32,21 @@ public class BoosterApplication {
     public static void main(String[] args) {
         SpringApplication.run(BoosterApplication.class, args);
     }
+
+    @Bean
+    public ErrorAttributes errorAttributes() {
+        return new DefaultErrorAttributes() {
+            @Override
+            public Map<String, Object> getErrorAttributes(RequestAttributes requestAttributes, boolean includeStackTrace) {
+                Map<String, Object> defaultErrorAttributes = super.getErrorAttributes(requestAttributes, includeStackTrace);
+                Map<String, Object> errorAttributes = new HashMap<>();
+                errorAttributes.put("error", defaultErrorAttributes.get("message"));
+                errorAttributes.put("code", defaultErrorAttributes.get("status"));
+
+                return errorAttributes;
+            }
+
+        };
+    }
+
 }
