@@ -73,7 +73,13 @@ mvn clean install
 1. Start the PostgreSQL database on Openshift
 
   ```
-   oc new-app -e POSTGRESQL_USER=springboot -e POSTGRESQL_PASSWORD=password -e POSTGRESQL_DATABASE=fruits openshift/postgresql-92-centos7 --name=my-database
+   oc new-app \
+    -p POSTGRESQL_USER=luke \
+    -p POSTGRESQL_PASSWORD=secret \
+    -p POSTGRESQL_DATABASE=my_data \
+    -p DATABASE_SERVICE_NAME=my-database \
+    --name=my-database \
+    --template=postgresql-ephemeral 
   ```
 
   This will create a database pod with the name `my-database`
