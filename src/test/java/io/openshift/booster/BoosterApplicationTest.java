@@ -118,7 +118,7 @@ public class BoosterApplicationTest {
                 .when()
                 .post()
                 .then()
-                .statusCode(415); // TODO spec says 400
+                .statusCode(415);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class BoosterApplicationTest {
                 .when()
                 .post()
                 .then()
-                .statusCode(400);
+                .statusCode(415);
     }
 
     @Test
@@ -172,7 +172,7 @@ public class BoosterApplicationTest {
                 .when()
                 .put(String.valueOf(cherry.getId()))
                 .then()
-                .statusCode(415); // TODO spec says 400
+                .statusCode(415);
     }
 
     @Test
@@ -182,7 +182,7 @@ public class BoosterApplicationTest {
                 .when()
                 .put(String.valueOf(cherry.getId()))
                 .then()
-                .statusCode(400);
+                .statusCode(415);
     }
 
     @Test

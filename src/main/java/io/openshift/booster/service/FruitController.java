@@ -24,6 +24,7 @@ import java.util.stream.StreamSupport;
 
 import io.openshift.booster.exception.NotFoundException;
 import io.openshift.booster.exception.UnprocessableEntityException;
+import io.openshift.booster.exception.UnsupportedMediaTypeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -71,7 +72,7 @@ public class FruitController {
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Fruit post(@RequestBody Fruit fruit) {
+    public Fruit post(@RequestBody(required = false) Fruit fruit) {
         verifyCorrectPayload(fruit);
 
         return repository.save(fruit);
@@ -80,7 +81,7 @@ public class FruitController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Fruit put(@PathVariable("id") Integer id, @RequestBody Fruit fruit) {
+    public Fruit put(@PathVariable("id") Integer id, @RequestBody(required = false) Fruit fruit) {
         verifyFruitExists(id);
         verifyCorrectPayload(fruit);
 
@@ -103,6 +104,10 @@ public class FruitController {
     }
 
     private void verifyCorrectPayload(Fruit fruit) {
+        if (Objects.isNull(fruit)) {
+            throw new UnsupportedMediaTypeException("Fruit cannot be null");
+        }
+
         if (!Objects.isNull(fruit.getId())) {
             throw new UnprocessableEntityException("Id filed must be generated");
         }
