@@ -3,11 +3,6 @@ spec:
   template:
     spec:
       containers:
-        - readinessProbe:
-            httpGet:
-              path: /api/fruits
-              port: 8080
-              scheme: HTTP
-          env:
+        - env:
             - name: JAVA_OPTIONS
               value: "-Dspring.profiles.active=openshift"
