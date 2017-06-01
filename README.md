@@ -1,1 +1,1 @@
-http://appdev.openshift.io/docs/mission-crud-spring-boot-tomcat.html
+http://appdev-stage.openshift.io/docs/spring-boot-runtime.html#mission-crud-spring-boot-tomcat
