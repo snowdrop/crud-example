@@ -7,8 +7,8 @@
       <version>2.7.7</version>
       <licenses>
         <license>
-          <name>BSD License</name>
-          <url>http://www.antlr.org/license.html</url>
+          <name>BSD 3-clause "New" or "Revised" License</name>
+          <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
         </license>
       </licenses>
     </dependency>
@@ -136,8 +136,8 @@
       <version>1.4.192</version>
       <licenses>
         <license>
-          <name>MPL 2.0 or EPL 1.0</name>
-          <url>http://h2database.com/html/license.html</url>
+          <name>Eclipse Public License, Version 1.0</name>
+          <url>http://www.eclipse.org/legal/epl-v10.html</url>
         </license>
       </licenses>
     </dependency>
@@ -268,8 +268,8 @@
       <version>1.11-8</version>
       <licenses>
         <license>
-          <name>The 2-Clause BSD License</name>
-          <url>https://opensource.org/licenses/bsd-license</url>
+          <name>BSD 2-clause "Simplified" License</name>
+          <url>http://www.opensource.org/licenses/BSD-2-Clause</url>
         </license>
       </licenses>
     </dependency>
@@ -279,8 +279,8 @@
       <version>1.6.1</version>
       <licenses>
         <license>
-          <name>The 3-Clause BSD License</name>
-          <url>https://opensource.org/licenses/bsd-3-clause</url>
+          <name>BSD 3-clause "New" or "Revised" License</name>
+          <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
         </license>
       </licenses>
     </dependency>
@@ -565,8 +565,8 @@
       <version>1.3</version>
       <licenses>
         <license>
-          <name>The 2-Clause BSD License</name>
-          <url>https://opensource.org/licenses/bsd-license</url>
+          <name>BSD 2-clause "Simplified" License</name>
+          <url>http://www.opensource.org/licenses/BSD-2-Clause</url>
         </license>
       </licenses>
     </dependency>
@@ -576,8 +576,8 @@
       <version>1.3</version>
       <licenses>
         <license>
-          <name>The 2-Clause BSD License</name>
-          <url>https://opensource.org/licenses/bsd-license</url>
+          <name>BSD 2-clause "Simplified" License</name>
+          <url>http://www.opensource.org/licenses/BSD-2-Clause</url>
         </license>
       </licenses>
     </dependency>
@@ -646,7 +646,7 @@
       <version>3.20.0-GA</version>
       <licenses>
         <license>
-          <name>MPL 1.1</name>
+          <name>Mozilla Public License 1.1</name>
           <url>http://www.mozilla.org/MPL/MPL-1.1.html</url>
         </license>
         <license>
@@ -687,7 +687,7 @@
       <version>20140107</version>
       <licenses>
         <license>
-          <name>The JSON License</name>
+          <name>JSON License</name>
           <url>http://www.json.org/license.html</url>
         </license>
       </licenses>
@@ -720,8 +720,8 @@
       <version>5.0.3</version>
       <licenses>
         <license>
-          <name>The 3-Clause BSD License</name>
-          <url>https://opensource.org/licenses/bsd-3-clause</url>
+          <name>BSD 3-clause "New" or "Revised" License</name>
+          <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
         </license>
       </licenses>
     </dependency>
@@ -1109,11 +1109,11 @@
           <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
         <license>
-          <name>The SAX License</name>
+          <name>Sax Public Domain Notice</name>
           <url>http://www.saxproject.org/copying.html</url>
         </license>
         <license>
-          <name>The W3C License</name>
+          <name>W3C Software Notice and License</name>
           <url>http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding.zip</url>
         </license>
       </licenses>
