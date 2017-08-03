@@ -93,6 +93,12 @@
           <xsl:with-param name="url" select="$eclipse_v1_url"/>
         </xsl:call-template>
       </xsl:when>
+      <xsl:when test="contains(ancestor::dependency/groupId/text(), 'org.postgresql')">
+        <xsl:call-template name="license">
+          <xsl:with-param name="name" select="$bsd_2_name"/>
+          <xsl:with-param name="url" select="$bsd_2_url"/>
+        </xsl:call-template>
+      </xsl:when>
       <!-- Generic license modifications -->
       <xsl:when test="contains(translate(url/text(), $uppercase, $lowercase), 'www.apache.org/licenses/license-2.0')">
         <xsl:call-template name="license">
@@ -173,5 +179,5 @@
     </license>
   </xsl:template>
 
-  
+
 </xsl:stylesheet>
