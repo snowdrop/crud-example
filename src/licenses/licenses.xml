@@ -345,8 +345,8 @@
       <version>1.2</version>
       <licenses>
         <license>
-          <name>CDDL + GPLv2 with classpath exception</name>
-          <url>https://glassfish.dev.java.net/nonav/public/CDDL+GPL.html</url>
+          <name>Common Development and Distribution License (CDDL) and GNU Public License v.2 w/Classpath Exception</name>
+          <url>https://netbeans.org/cddl-gplv2.html</url>
         </license>
       </licenses>
     </dependency>

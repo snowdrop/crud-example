@@ -35,6 +35,9 @@
   <xsl:variable name="sax_name" select="'Sax Public Domain Notice'"/>
   <xsl:variable name="sax_url" select="'http://www.saxproject.org/copying.html'"/>
 
+  <xsl:variable name="cddl_with_gpl_name" select="'Common Development and Distribution License (CDDL) and GNU Public License v.2 w/Classpath Exception'"/>
+  <xsl:variable name="cddl_with_gpl_url" select="'https://netbeans.org/cddl-gplv2.html'"/>
+
   <xsl:variable name="w3c_name" select="'W3C Software Notice and License'"/>
 
   <xsl:template match="@*|node()">
@@ -152,6 +155,12 @@
         <xsl:call-template name="license">
           <xsl:with-param name="name" select="$sax_name"/>
           <xsl:with-param name="url" select="$sax_url"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="contains(translate(., $uppercase, $lowercase), 'cddl + gplv2 with classpath exception')">
+        <xsl:call-template name="license">
+          <xsl:with-param name="name" select="$cddl_with_gpl_name"/>
+          <xsl:with-param name="url" select="$cddl_with_gpl_url"/>
         </xsl:call-template>
       </xsl:when>
       <xsl:when test="contains(translate(., $uppercase, $lowercase), 'w3c')">
