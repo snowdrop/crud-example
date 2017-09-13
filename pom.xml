@@ -25,7 +25,7 @@
 
   <groupId>io.openshift.booster</groupId>
   <artifactId>spring-boot-crud</artifactId>
-  <version>9-redhat-SNAPSHOT</version>
+  <version>1-redhat-SNAPSHOT</version>
 
   <name>Spring Boot - CRUD</name>
   <description>Spring Boot - CRUD</description>
