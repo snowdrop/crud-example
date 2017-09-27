@@ -33,7 +33,7 @@
   <properties>
     <postgresql.version>9.4.1212</postgresql.version>
     <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
-    <spring-boot.bom.version>1.4.1.Beta2</spring-boot.bom.version>
+    <spring-boot.bom.version>2</spring-boot.bom.version>
   </properties>
 
   <repositories>
@@ -47,8 +47,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>me.snowdrop</groupId>
-        <artifactId>spring-boot-bom</artifactId>
+        <groupId>org.jboss.snowdrop</groupId>
+        <artifactId>spring-boot-1.4-bom</artifactId>
         <version>${spring-boot.bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
