@@ -1,1 +1,7 @@
-name: Spring Boot - CRUD
+name: Spring Boot - CRUD Example
+description: A booster demonstrating how to set up a simple CRUD application with Spring Boot on OpenShift
+versions:
+- id: community
+ name: Community Runtime
+- id: redhat
+ name: Red Hat Productized Runtime
