@@ -16,86 +16,59 @@
 
 package io.openshift.booster;
 
-import java.io.File;
-import java.util.Collections;
-import java.util.concurrent.TimeUnit;
-
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.http.ContentType;
-import com.jayway.restassured.response.Response;
-import io.openshift.booster.test.OpenShiftTestAssistant;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import static com.jayway.awaitility.Awaitility.await;
-import static com.jayway.restassured.RestAssured.get;
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.when;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.isEmptyString;
 
+import java.net.URL;
+import java.util.Collections;
+
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.http.ContentType;
+import org.arquillian.cube.openshift.impl.enricher.RouteURL;
+import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@RunWith(Arquillian.class)
 public class OpenShiftIT {
 
-    private static OpenShiftTestAssistant assistant = new OpenShiftTestAssistant();
+  @RouteURL("spring-boot-rest-http-crud")
+  private URL url;
 
-    @BeforeClass
-    public static void prepare() throws Exception {
-        // Deploy the database and wait until it's ready.
-        assistant.deploy("database", new File("src/test/resources/templates/database.yml"));
-        assistant.awaitPodReadinessOrFail(
-                pod -> "my-database".equals(pod.getMetadata()
-                        .getLabels()
-                        .get("app"))
-        );
-        System.out.println("Database ready");
+  @Before
+  public void setup() {
+    RestAssured.baseURI = url + "api/fruits";
+  }
 
-        assistant.deployApplication();
-        assistant.awaitApplicationReadinessOrFail();
+  @Test
+  public void testPostGetAndDelete() {
+    Integer id = given()
+      .contentType(ContentType.JSON)
+      .body(Collections.singletonMap("name", "Lemon"))
+      .when()
+      .post()
+      .then()
+      .statusCode(201)
+      .body("id", not(isEmptyString()))
+      .body("name", is("Lemon"))
+      .extract()
+      .response()
+      .path("id");
 
-        await().atMost(5, TimeUnit.MINUTES)
-                .until(() -> {
-                    try {
-                        Response response = get();
-                        return response.getStatusCode() < 500;
-                    } catch (Exception e) {
-                        return false;
-                    }
-                });
+    when().get(id.toString())
+      .then()
+      .statusCode(200)
+      .body("id", is(id))
+      .body("name", is("Lemon"));
 
-        RestAssured.baseURI = RestAssured.baseURI + "/api/fruits";
-    }
-
-    @AfterClass
-    public static void cleanup() {
-        assistant.cleanup();
-    }
-
-    @Test
-    public void testPostGetAndDelete() {
-        Integer id = given()
-                .contentType(ContentType.JSON)
-                .body(Collections.singletonMap("name", "Lemon"))
-                .when()
-                .post()
-                .then()
-                .statusCode(201)
-                .body("id", not(isEmptyString()))
-                .body("name", is("Lemon"))
-                .extract()
-                .response()
-                .path("id");
-
-        when().get(id.toString())
-                .then()
-                .statusCode(200)
-                .body("id", is(id))
-                .body("name", is("Lemon"));
-
-        when().delete(id.toString())
-                .then()
-                .statusCode(204);
-    }
+    when().delete(id.toString())
+      .then()
+      .statusCode(204);
+  }
 
 }
+
