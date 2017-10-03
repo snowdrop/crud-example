@@ -31,6 +31,8 @@
   <description>Spring Boot - CRUD Booster</description>
 
   <properties>
+    <arquillian.version>1.1.13.Final</arquillian.version>
+    <arquillian.cube.version>1.9.1</arquillian.cube.version>
     <postgresql.version>9.4.1212</postgresql.version>
     <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
     <spring-boot.bom.version>1.5.8.Final</spring-boot.bom.version>
@@ -42,6 +44,22 @@
         <groupId>me.snowdrop</groupId>
         <artifactId>spring-boot-bom</artifactId>
         <version>${spring-boot.bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>${arquillian.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.arquillian.cube</groupId>
+        <artifactId>arquillian-cube-bom</artifactId>
+        <version>${arquillian.cube.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -63,6 +81,24 @@
     </dependency>
 
     <!-- Testing -->
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.arquillian.cube</groupId>
+      <artifactId>arquillian-cube-openshift</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>io.undertow</groupId>
+          <artifactId>undertow-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -94,6 +130,16 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <classpathDependencyExcludes>
+            <classpathDependencyExclude>org.arquillian.cube:arquillian-cube-openshift</classpathDependencyExclude>
+            <classpathDependencyExclude>org.arquillian.cube:arquillian-cube-kubernetes</classpathDependencyExclude>
+          </classpathDependencyExcludes>
+        </configuration>
       </plugin>
     </plugins>
   </build>
