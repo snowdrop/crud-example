@@ -59,7 +59,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: spring-boot-rest-http-crud:4-redhat
+        name: spring-boot-rest-http-crud:5-redhat
     postCommit: {}
     resources: {}
     source:
@@ -138,7 +138,7 @@ objects:
   kind: DeploymentConfig
   metadata:
     annotations:
-      fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-rest-http-crud&var-version=4-redhat
+      fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-rest-http-crud&var-version=5-redhat
       fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-rest-http-crud
       fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-rest-http-crud
       fabric8.io/iconUrl: img/icons/spring-boot.svg
@@ -165,7 +165,7 @@ objects:
     template:
       metadata:
         annotations:
-          fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-rest-http-crud&var-version=4-redhat
+          fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-rest-http-crud&var-version=5-redhat
           fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-rest-http-crud
           fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-rest-http-crud
           fabric8.io/iconUrl: img/icons/spring-boot.svg
@@ -196,7 +196,7 @@ objects:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-          image: spring-boot-rest-http-crud:4-redhat
+          image: spring-boot-rest-http-crud:5-redhat
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -231,7 +231,7 @@ objects:
         - spring-boot
         from:
           kind: ImageStreamTag
-          name: spring-boot-rest-http-crud:4-redhat
+          name: spring-boot-rest-http-crud:5-redhat
       type: ImageChange
 - apiVersion: v1
   kind: Route
