@@ -24,11 +24,11 @@
   </parent>
 
   <groupId>io.openshift.booster</groupId>
-  <artifactId>spring-boot-crud</artifactId>
+  <artifactId>spring-boot-rest-http-crud</artifactId>
   <version>5-redhat-SNAPSHOT</version>
 
-  <name>Spring Boot - CRUD</name>
-  <description>Spring Boot - CRUD</description>
+  <name>Spring Boot - CRUD Booster</name>
+  <description>Spring Boot - CRUD Booster</description>
 
   <properties>
     <postgresql.version>9.4.1212</postgresql.version>
