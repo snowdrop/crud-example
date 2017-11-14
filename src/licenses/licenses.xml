@@ -136,8 +136,12 @@
             <version>1.4.196</version>
             <licenses>
                 <license>
-                    <name>MPL 2.0 or EPL 1.0</name>
-                    <url>http://h2database.com/html/license.html</url>
+                    <name>Mozilla Public License v2.0</name>
+                    <url>http://www.mozilla.org/MPL/2.0</url>
+                </license>
+                <license>
+                    <name>Eclipse Public License, Version 1.0</name>
+                    <url>http://repository.jboss.org/licenses/epl-1.0.txt</url>
                 </license>
             </licenses>
         </dependency>
@@ -290,8 +294,8 @@
             <version>1.6.1.redhat-7</version>
             <licenses>
                 <license>
-                    <name>BSD</name>
-                    <url>http://dom4j.sourceforge.net/dom4j-1.6.1/license.html</url>
+                    <name>BSD 3-clause "New" or "Revised" License</name>
+                    <url>https://opensource.org/licenses/BSD-3-Clause</url>
                 </license>
             </licenses>
         </dependency>
