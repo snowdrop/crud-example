@@ -36,7 +36,7 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
 
-  @RouteURL("spring-boot-rest-http-crud")
+  @RouteURL("${app.name}")
   private URL url;
 
   @Before
