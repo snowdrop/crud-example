@@ -109,7 +109,7 @@ public class FruitController {
         }
 
         if (!Objects.isNull(fruit.getId())) {
-            throw new UnprocessableEntityException("Id filed must be generated");
+            throw new UnprocessableEntityException("Id field must be generated");
         }
     }
 
