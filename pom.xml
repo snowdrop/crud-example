@@ -98,6 +98,18 @@
         </configuration>
       </plugin>
     </plugins>
+    <!-- Used only to replace ${db.name} in index.html with the corresponding Database name -->
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>false</filtering>
+        </resource>
+        <resource>
+            <directory>src/main/resources/static</directory>
+            <filtering>true</filtering>
+            <targetPath>static</targetPath>
+        </resource>
+    </resources>
   </build>
 
   <profiles>
@@ -113,6 +125,9 @@
           <scope>runtime</scope>
         </dependency>
       </dependencies>
+      <properties>
+          <db.name>H2</db.name>
+      </properties>
     </profile>
     <profile>
       <id>openshift</id>
@@ -124,6 +139,9 @@
           <scope>runtime</scope>
         </dependency>
       </dependencies>
+      <properties>
+          <db.name>PostgreSQL</db.name>
+      </properties>
     </profile>
     <profile>
       <id>openshift-it</id>
