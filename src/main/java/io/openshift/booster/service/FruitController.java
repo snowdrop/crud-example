@@ -16,19 +16,10 @@
 
 package io.openshift.booster.service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Spliterator;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 import io.openshift.booster.exception.NotFoundException;
 import io.openshift.booster.exception.UnprocessableEntityException;
 import io.openshift.booster.exception.UnsupportedMediaTypeException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,30 +27,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+import java.util.Objects;
+import java.util.Spliterator;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+@RestController
 @RequestMapping(value = "/api/fruits")
 public class FruitController {
 
     private final FruitRepository repository;
 
-    @Autowired
     public FruitController(FruitRepository repository) {
         this.repository = repository;
     }
 
-    @ResponseBody
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/{id}")
     public Fruit get(@PathVariable("id") Integer id) {
         verifyFruitExists(id);
 
         return repository.findOne(id);
     }
 
-    @ResponseBody
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public List<Fruit> getAll() {
         Spliterator<Fruit> fruits = repository.findAll()
                 .spliterator();
@@ -69,18 +63,16 @@ public class FruitController {
                 .collect(Collectors.toList());
     }
 
-    @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public Fruit post(@RequestBody(required = false) Fruit fruit) {
         verifyCorrectPayload(fruit);
 
         return repository.save(fruit);
     }
 
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping("/{id}")
     public Fruit put(@PathVariable("id") Integer id, @RequestBody(required = false) Fruit fruit) {
         verifyFruitExists(id);
         verifyCorrectPayload(fruit);
