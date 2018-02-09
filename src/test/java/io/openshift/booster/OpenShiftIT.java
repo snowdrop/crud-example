@@ -27,6 +27,7 @@ import java.util.Collections;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
+import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;
@@ -36,6 +37,7 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
 
+  @AwaitRoute(path = "/health")
   @RouteURL("${app.name}")
   private URL url;
 
