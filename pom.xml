@@ -20,11 +20,11 @@
   <parent>
     <groupId>io.openshift.booster</groupId>
     <artifactId>spring-boot-booster-parent</artifactId>
-    <version>3</version>
+    <version>1.5.10-1-rhoar</version>
   </parent>
 
   <artifactId>spring-boot-rest-http-crud</artifactId>
-  <version>15-SNAPSHOT</version>
+  <version>1.5.10-1-redhat-SNAPSHOT</version>
 
   <name>Spring Boot - CRUD Booster</name>
   <description>Spring Boot - CRUD Booster</description>
