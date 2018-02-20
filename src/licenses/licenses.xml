@@ -372,7 +372,7 @@
             <licenses>
                 <license>
                     <name>BSD 2-clause "Simplified" License</name>
-                    <url>https://opensource.org/licenses/BSD-2-Clause</url>
+                    <url>https://opensource.org/licenses/BSD-2-Clause/</url>
                 </license>
             </licenses>
         </dependency>
@@ -449,7 +449,7 @@
             <licenses>
                 <license>
                     <name>MIT License</name>
-                    <url>https://www.opensource.org/licenses/MIT</url>
+                    <url>https://opensource.org/licenses/MIT/</url>
                 </license>
             </licenses>
         </dependency>
@@ -999,7 +999,7 @@
             <licenses>
                 <license>
                     <name>MIT License</name>
-                    <url>https://www.opensource.org/licenses/MIT</url>
+                    <url>https://opensource.org/licenses/MIT/</url>
                 </license>
             </licenses>
         </dependency>
@@ -1164,7 +1164,7 @@
             <licenses>
                 <license>
                     <name>BSD 2-clause "Simplified" License</name>
-                    <url>https://opensource.org/licenses/BSD-2-Clause</url>
+                    <url>https://opensource.org/licenses/BSD-2-Clause/</url>
                 </license>
             </licenses>
         </dependency>
@@ -1175,7 +1175,7 @@
             <licenses>
                 <license>
                     <name>BSD 2-clause "Simplified" License</name>
-                    <url>https://opensource.org/licenses/BSD-2-Clause</url>
+                    <url>https://opensource.org/licenses/BSD-2-Clause/</url>
                 </license>
             </licenses>
         </dependency>
@@ -1686,7 +1686,7 @@
             <licenses>
                 <license>
                     <name>MIT License</name>
-                    <url>https://www.opensource.org/licenses/MIT</url>
+                    <url>https://opensource.org/licenses/MIT/</url>
                 </license>
             </licenses>
         </dependency>
@@ -1697,7 +1697,7 @@
             <licenses>
                 <license>
                     <name>MIT License</name>
-                    <url>https://www.opensource.org/licenses/MIT</url>
+                    <url>https://opensource.org/licenses/MIT/</url>
                 </license>
             </licenses>
         </dependency>
@@ -1708,7 +1708,7 @@
             <licenses>
                 <license>
                     <name>MIT License</name>
-                    <url>https://www.opensource.org/licenses/MIT</url>
+                    <url>https://opensource.org/licenses/MIT/</url>
                 </license>
             </licenses>
         </dependency>
@@ -1752,7 +1752,7 @@
             <licenses>
                 <license>
                     <name>MIT License</name>
-                    <url>https://www.opensource.org/licenses/MIT</url>
+                    <url>https://opensource.org/licenses/MIT/</url>
                 </license>
             </licenses>
         </dependency>
@@ -1763,7 +1763,7 @@
             <licenses>
                 <license>
                     <name>MIT License</name>
-                    <url>https://www.opensource.org/licenses/MIT</url>
+                    <url>https://opensource.org/licenses/MIT/</url>
                 </license>
             </licenses>
         </dependency>
@@ -1785,7 +1785,7 @@
             <licenses>
                 <license>
                     <name>MIT License</name>
-                    <url>https://www.opensource.org/licenses/MIT</url>
+                    <url>https://opensource.org/licenses/MIT/</url>
                 </license>
             </licenses>
         </dependency>
