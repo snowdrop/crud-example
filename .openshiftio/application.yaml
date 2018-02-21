@@ -1,10 +1,16 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: launchpad-builder
+  name: spring-boot-rest-http-crud
   annotations:
-    description: This template creates a Build Configuration using an S2I builder.
-    tags: instant-app
+    iconClass: icon-spring
+    tags: spring-boot, rest, crud, java, microservice
+    openshift.io/display-name: Spring Boot - REST HTTP and CRUD
+    openshift.io/provider-display-name: "Red Hat, Inc."
+    openshift.io/documentation-url: "https://appdev.prod-preview.openshift.io/docs/spring-boot-runtime.html#mission-crud-spring-boot-tomcat"
+    description: >-
+      The Relational Database Backend booster expands on the REST API Level 0 booster to provide a basic example of performing create, read, update and delete (CRUD) operations on a PostgreSQL database using a simple HTTP API.
+      CRUD operations are the four basic functions of persistent storage, widely used when developing an HTTP API dealing with a database.
 parameters:
 - name: SOURCE_REPOSITORY_URL
   description: The source URL for the application
@@ -59,14 +65,13 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: spring-boot-rest-http-crud:14
+        name: spring-boot-rest-http-crudBOOSTER_VERSION
     postCommit: {}
     resources: {}
     source:
       git:
         uri: ${SOURCE_REPOSITORY_URL}
         ref: ${SOURCE_REPOSITORY_REF}
-      #contextDir: ${SOURCE_REPOSITORY_DIR}
       type: Git
     strategy:
       sourceStrategy:
@@ -98,8 +103,8 @@ objects:
   metadata:
     labels:
       app: spring-boot-rest-http-crud
-      provider: fabric8
-      version: "14"
+      provider: snowdrop
+      version: BOOSTER_VERSION
       group: io.openshift.booster
     name: my-database-secret
   stringData:
@@ -108,20 +113,10 @@ objects:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-rest-http-crud
-      prometheus.io/port: "9779"
-      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-rest-http-crud
-      fabric8.io/iconUrl: img/icons/spring-boot.svg
-      fabric8.io/git-branch: sb-1.5.x
-      prometheus.io/scrape: "true"
-      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-rest-http-crud
-      fabric8.io/scm-tag: booster-parent-11
     labels:
-      expose: "true"
       app: spring-boot-rest-http-crud
-      provider: fabric8
-      version: "14"
+      provider: snowdrop
+      version: BOOSTER_VERSION
       group: io.openshift.booster
     name: spring-boot-rest-http-crud
   spec:
@@ -132,23 +127,15 @@ objects:
       targetPort: 8080
     selector:
       app: spring-boot-rest-http-crud
-      provider: fabric8
+      provider: snowdrop
       group: io.openshift.booster
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
-    annotations:
-      fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-rest-http-crud&var-version=14
-      fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-rest-http-crud
-      fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-rest-http-crud
-      fabric8.io/iconUrl: img/icons/spring-boot.svg
-      fabric8.io/git-branch: sb-1.5.x
-      fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-rest-http-crud
-      fabric8.io/scm-tag: booster-parent-11
     labels:
       app: spring-boot-rest-http-crud
-      provider: fabric8
-      version: "14"
+      provider: snowdrop
+      version: BOOSTER_VERSION
       group: io.openshift.booster
     name: spring-boot-rest-http-crud
   spec:
@@ -156,7 +143,7 @@ objects:
     revisionHistoryLimit: 2
     selector:
       app: spring-boot-rest-http-crud
-      provider: fabric8
+      provider: snowdrop
       group: io.openshift.booster
     strategy:
       rollingParams:
@@ -164,18 +151,10 @@ objects:
       type: Rolling
     template:
       metadata:
-        annotations:
-          fabric8.io/metrics-path: dashboard/file/kubernetes-pods.json/?var-project=spring-boot-rest-http-crud&var-version=14
-          fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/spring-boot-rest-http-crud
-          fabric8.io/scm-url: https://github.com/openshiftio/spring-boot-rest-http-crud
-          fabric8.io/iconUrl: img/icons/spring-boot.svg
-          fabric8.io/git-branch: sb-1.5.x
-          fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/spring-boot-rest-http-crud
-          fabric8.io/scm-tag: booster-parent-11
         labels:
           app: spring-boot-rest-http-crud
-          provider: fabric8
-          version: "14"
+          provider: snowdrop
+          version: BOOSTER_VERSION
           group: io.openshift.booster
       spec:
         containers:
@@ -196,7 +175,7 @@ objects:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-          image: spring-boot-rest-http-crud:14
+          image: spring-boot-rest-http-crud:BOOSTER_VERSION
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -208,9 +187,6 @@ objects:
           ports:
           - containerPort: 8080
             name: http
-            protocol: TCP
-          - containerPort: 9779
-            name: prometheus
             protocol: TCP
           - containerPort: 8778
             name: jolokia
@@ -231,15 +207,15 @@ objects:
         - spring-boot
         from:
           kind: ImageStreamTag
-          name: spring-boot-rest-http-crud:14
+          name: spring-boot-rest-http-crud:BOOSTER_VERSION
       type: ImageChange
 - apiVersion: v1
   kind: Route
   metadata:
     labels:
       app: spring-boot-rest-http-crud
-      provider: fabric8
-      version: "14"
+      provider: snowdrop
+      version: BOOSTER_VERSION
       group: io.openshift.booster
     name: spring-boot-rest-http-crud
   spec:
