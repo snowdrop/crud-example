@@ -65,7 +65,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: spring-boot-rest-http-crudBOOSTER_VERSION
+        name: spring-boot-rest-http-crud:BOOSTER_VERSION
     postCommit: {}
     resources: {}
     source:
