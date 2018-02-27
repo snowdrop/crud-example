@@ -687,7 +687,7 @@
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-annotations-api</artifactId>
-            <version>8.5.27</version>
+            <version>8.5.28</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -698,7 +698,7 @@
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
-            <version>8.5.27</version>
+            <version>8.5.28</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -709,7 +709,7 @@
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-juli</artifactId>
-            <version>8.5.27</version>
+            <version>8.5.28</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -720,7 +720,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>8.5.27</version>
+            <version>8.5.28</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -731,7 +731,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-el</artifactId>
-            <version>8.5.27</version>
+            <version>8.5.28</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -742,7 +742,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-websocket</artifactId>
-            <version>8.5.27</version>
+            <version>8.5.28</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
