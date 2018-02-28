@@ -1,204 +1,253 @@
-/*
- * Copyright 2016-2017 Red Hat, Inc, and individual contributors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package io.openshift.booster;
 
-import java.util.Collections;
 
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.http.ContentType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openshift.booster.service.Fruit;
+import io.openshift.booster.service.FruitController;
 import io.openshift.booster.service.FruitRepository;
-import org.junit.Before;
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.RestAssured.when;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.junit.Assert.assertFalse;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.never;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@WebMvcTest(FruitController.class)
 public class BoosterApplicationTest {
 
-    @Value("${local.server.port}")
-    private int port;
+    private static final String PATH = "/api/fruits";
+    private static final String TEMPLATE_PATH_WITH_ID = PATH + "/{id}";
 
     @Autowired
+    private MockMvc mvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @MockBean
     private FruitRepository fruitRepository;
 
-    @Before
-    public void beforeTest() {
-        fruitRepository.deleteAll();
-        RestAssured.baseURI = String.format("http://localhost:%d/api/fruits", port);
+    @Test
+    public void testGetAll() throws Exception {
+        given(fruitRepository.findAll())
+                .willReturn(Lists.newArrayList(new Fruit("Cherry"), new Fruit("Apple")));
+
+        mvc.perform(get(PATH))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*].name", containsInAnyOrder("Cherry", "Apple")));
     }
 
     @Test
-    public void testGetAll() {
-        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        Fruit apple = fruitRepository.save(new Fruit("Apple"));
-        when().get()
-                .then()
-                .statusCode(200)
-                .body("id", hasItems(cherry.getId(), apple.getId()))
-                .body("name", hasItems(cherry.getName(), apple.getName()));
+    public void testGetEmptyArray() throws Exception {
+        given(fruitRepository.findAll())
+                .willReturn(Lists.newArrayList());
+
+        mvc.perform(get(PATH))
+                .andExpect(status().isOk())
+                .andExpect(content().string("[]"));
+
+        verify(fruitRepository, times(1)).findAll();
     }
 
     @Test
-    public void testGetEmptyArray() {
-        when().get()
-                .then()
-                .statusCode(200)
-                .body(is("[]"));
+    public void testGetOne() throws Exception {
+        final int id = 1;
+        given(fruitRepository.findOne(id))
+                .willReturn(new Fruit("Cherry"));
+        given(fruitRepository.exists(id)).willReturn(true);
+
+        mvc.perform(get(TEMPLATE_PATH_WITH_ID, id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("Cherry")));
+
+        verify(fruitRepository, times(1)).findOne(id);
+        verify(fruitRepository, times(1)).exists(id);
     }
 
     @Test
-    public void testGetOne() {
-        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        when().get(String.valueOf(cherry.getId()))
-                .then()
-                .statusCode(200)
-                .body("id", is(cherry.getId()))
-                .body("name", is(cherry.getName()));
+    public void testGetNotExisting() throws Exception {
+        final int id = 0;
+        given(fruitRepository.exists(id)).willReturn(false);
+
+        mvc.perform(get(TEMPLATE_PATH_WITH_ID, id))
+                .andExpect(status().isNotFound());
+
+        verify(fruitRepository, times(1)).exists(id);
     }
 
     @Test
-    public void testGetNotExisting() {
-        when().get("0")
-                .then()
-                .statusCode(404);
+    public void testPost() throws Exception {
+        final Fruit fruit = new Fruit("Cherry");
+        final Fruit fruitWithId = new Fruit(fruit.getName());
+        fruitWithId.setId(1);
+
+        given(fruitRepository.save(Mockito.any(Fruit.class))).willReturn(fruitWithId);
+
+        mvc.perform(
+                post(PATH)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(fruit))
+        )
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.name", is(fruitWithId.getName())))
+        .andExpect(jsonPath("$.id", is(fruitWithId.getId())));
+
+        verify(fruitRepository, times(1)).save(Mockito.any(Fruit.class));
     }
 
     @Test
-    public void testPost() {
-        given().contentType(ContentType.JSON)
-                .body(Collections.singletonMap("name", "Cherry"))
-                .when()
-                .post()
-                .then()
-                .statusCode(201)
-                .body("id", not(isEmptyString()))
-                .body("name", is("Cherry"));
+    public void testPostWithWrongPayload() throws Exception {
+        final Fruit fruit = new Fruit("Cherry");
+        final Fruit fruitWithId = new Fruit(fruit.getName());
+        fruitWithId.setId(1);
+
+        mvc.perform(
+                post(PATH)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(fruitWithId))
+        )
+        .andExpect(status().isUnprocessableEntity());
+
+        verify(fruitRepository, never()).save(Mockito.any(Fruit.class));
     }
 
     @Test
-    public void testPostWithWrongPayload() {
-        given().contentType(ContentType.JSON)
-                .body(Collections.singletonMap("id", 0))
-                .when()
-                .post()
-                .then()
-                .statusCode(422);
+    public void testPostWithNonJsonPayload() throws Exception {
+        mvc.perform(post(PATH).contentType(MediaType.APPLICATION_XML))
+           .andExpect(status().isUnsupportedMediaType());
+
+        verify(fruitRepository, never()).save(Mockito.any(Fruit.class));
     }
 
     @Test
-    public void testPostWithNonJsonPayload() {
-        given().contentType(ContentType.XML)
-                .when()
-                .post()
-                .then()
-                .statusCode(415);
+    public void testPostWithEmptyPayload() throws Exception {
+        mvc.perform(post(PATH).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnsupportedMediaType());
+
+        verify(fruitRepository, never()).save(Mockito.any(Fruit.class));
     }
 
     @Test
-    public void testPostWithEmptyPayload() {
-        given().contentType(ContentType.JSON)
-                .when()
-                .post()
-                .then()
-                .statusCode(415);
+    public void testPut() throws Exception {
+        final Fruit fruit = new Fruit("Cherry");
+        final Fruit fruitWithId = new Fruit(fruit.getName());
+        fruitWithId.setId(1);
+
+        given(fruitRepository.exists(fruitWithId.getId())).willReturn(true);
+        given(fruitRepository.save(Mockito.any(Fruit.class))).willReturn(fruitWithId);
+
+        mvc.perform(
+                put(TEMPLATE_PATH_WITH_ID, fruitWithId.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(fruit))
+        )
+        .andExpect(status().isOk());
+
+        verify(fruitRepository, times(1)).exists(fruitWithId.getId());
+        verify(fruitRepository, times(1)).save(Mockito.any(Fruit.class));
     }
 
     @Test
-    public void testPut() {
-        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        given().contentType(ContentType.JSON)
-                .body(Collections.singletonMap("name", "Lemon"))
-                .when()
-                .put(String.valueOf(cherry.getId()))
-                .then()
-                .statusCode(200)
-                .body("id", is(cherry.getId()))
-                .body("name", is("Lemon"));
+    public void testPutNotExisting() throws Exception {
+        final Fruit fruit = new Fruit("Cherry");
+        final Fruit fruitWithId = new Fruit(fruit.getName());
+        fruitWithId.setId(1);
 
+        given(fruitRepository.exists(fruitWithId.getId())).willReturn(false);
+
+        mvc.perform(
+                put(TEMPLATE_PATH_WITH_ID, fruitWithId.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(fruit))
+        )
+        .andExpect(status().isNotFound());
+
+        verify(fruitRepository, times(1)).exists(fruitWithId.getId());
+        verify(fruitRepository, never()).save(Mockito.any(Fruit.class));
     }
 
     @Test
-    public void testPutNotExisting() {
-        given().contentType(ContentType.JSON)
-                .body(Collections.singletonMap("name", "Lemon"))
-                .when()
-                .put("/0")
-                .then()
-                .statusCode(404);
+    public void testPutWithWrongPayload() throws Exception {
+        final Fruit fruit = new Fruit("Cherry");
+        final Fruit fruitWithId = new Fruit(fruit.getName());
+        fruitWithId.setId(1);
+
+        given(fruitRepository.exists(fruitWithId.getId())).willReturn(true);
+
+        mvc.perform(
+                put(TEMPLATE_PATH_WITH_ID, fruitWithId.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(fruitWithId))
+        )
+        .andExpect(status().isUnprocessableEntity());
+
+        verify(fruitRepository, times(1)).exists(fruitWithId.getId());
+        verify(fruitRepository, never()).save(Mockito.any(Fruit.class));
     }
 
     @Test
-    public void testPutWithWrongPayload() {
-        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        given().contentType(ContentType.JSON)
-                .body(Collections.singletonMap("id", 0))
-                .when()
-                .put(String.valueOf(cherry.getId()))
-                .then()
-                .statusCode(422);
+    public void testPutWithNonJsonPayload() throws Exception {
+        mvc.perform(put(TEMPLATE_PATH_WITH_ID, 0).contentType(MediaType.APPLICATION_XML))
+                .andExpect(status().isUnsupportedMediaType());
+
+        verify(fruitRepository, never()).save(Mockito.any(Fruit.class));
     }
 
     @Test
-    public void testPutWithNonJsonPayload() {
-        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        given().contentType(ContentType.XML)
-                .when()
-                .put(String.valueOf(cherry.getId()))
-                .then()
-                .statusCode(415);
+    public void testPutWithEmptyPayload() throws Exception{
+        final int id = 0;
+
+        given(fruitRepository.exists(id)).willReturn(true);
+
+        mvc.perform(put(TEMPLATE_PATH_WITH_ID, id).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnsupportedMediaType());
+
+        verify(fruitRepository, times(1)).exists(id);
+        verify(fruitRepository, never()).save(Mockito.any(Fruit.class));
     }
 
     @Test
-    public void testPutWithEmptyPayload() {
-        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        given().contentType(ContentType.JSON)
-                .when()
-                .put(String.valueOf(cherry.getId()))
-                .then()
-                .statusCode(415);
+    public void testDelete() throws Exception {
+        final int id = 0;
+
+        given(fruitRepository.exists(id)).willReturn(true);
+
+        mvc.perform(delete(TEMPLATE_PATH_WITH_ID, id).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        verify(fruitRepository, times(1)).exists(id);
+        verify(fruitRepository, times(1)).delete(id);
     }
 
     @Test
-    public void testDelete() {
-        Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        when().delete(String.valueOf(cherry.getId()))
-                .then()
-                .statusCode(204);
-        assertFalse(fruitRepository.exists(cherry.getId()));
-    }
+    public void testDeleteNotExisting() throws Exception {
+        final int id = 0;
 
-    @Test
-    public void testDeleteNotExisting() {
-        when().delete("/0")
-                .then()
-                .statusCode(404);
-    }
+        given(fruitRepository.exists(id)).willReturn(false);
 
+        mvc.perform(delete(TEMPLATE_PATH_WITH_ID, id).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        verify(fruitRepository, times(1)).exists(id);
+        verify(fruitRepository, never()).delete(id);
+    }
 }
