@@ -98,7 +98,8 @@
         }
 
         function _error(response) {
-          console.error(response.statusText);
+          console.log(response);
+          alert(response.data.message || response.statusText);
         }
 
         //Clear the form

@@ -97,11 +97,15 @@ public class FruitController {
 
     private void verifyCorrectPayload(Fruit fruit) {
         if (Objects.isNull(fruit)) {
-            throw new UnsupportedMediaTypeException("Fruit cannot be null");
+            throw new UnsupportedMediaTypeException("Invalid payload!");
+        }
+
+        if (Objects.isNull(fruit.getName()) || fruit.getName().trim().length() == 0) {
+            throw new UnprocessableEntityException("The name is required!");
         }
 
         if (!Objects.isNull(fruit.getId())) {
-            throw new UnprocessableEntityException("Id field must be generated");
+            throw new UnprocessableEntityException("Id was invalidly set on request.");
         }
     }
 
