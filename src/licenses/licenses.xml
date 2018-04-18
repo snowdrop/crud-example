@@ -213,8 +213,12 @@
             <version>1.4.197</version>
             <licenses>
                 <license>
-                    <name>MPL 2.0 or EPL 1.0</name>
-                    <url>http://h2database.com/html/license.html</url>
+                    <name>Eclipse Public License, Version 1.0</name>
+                    <url>http://repository.jboss.org/licenses/epl-1.0.txt</url>
+                </license>
+                <license>
+                    <name>Mozilla Public License 2.0</name>
+                    <url>https://www.mozilla.org/en-US/MPL/2.0/</url>
                 </license>
             </licenses>
         </dependency>
