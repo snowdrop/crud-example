@@ -70,7 +70,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -114,7 +114,7 @@
       <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
-   
+
     <!-- Spring Boot Developer Tools -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -124,6 +124,18 @@
   </dependencies>
 
   <build>
+    <!-- Used only to replace ${db.name} in index.html with the corresponding Database name -->
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>false</filtering>
+        </resource>
+        <resource>
+            <directory>src/main/resources/static</directory>
+            <filtering>true</filtering>
+            <targetPath>static</targetPath>
+        </resource>
+    </resources>
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
@@ -141,19 +153,11 @@
           </classpathDependencyExcludes>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>      
     </plugins>
-    <!-- Used only to replace ${db.name} in index.html with the corresponding Database name -->
-    <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <filtering>false</filtering>
-        </resource>
-        <resource>
-            <directory>src/main/resources/static</directory>
-            <filtering>true</filtering>
-            <targetPath>static</targetPath>
-        </resource>
-    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
