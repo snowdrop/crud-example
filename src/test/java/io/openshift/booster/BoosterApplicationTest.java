@@ -16,12 +16,19 @@
 
 package io.openshift.booster;
 
-import java.util.Collections;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.junit.Assert.assertFalse;
 
 import io.openshift.booster.service.Fruit;
 import io.openshift.booster.service.FruitRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,17 +37,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.junit.Assert.assertFalse;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BoosterApplicationTest {
+
+    private static final String FRUITS_PATH = "api/fruits";
 
     @Value("${local.server.port}")
     private int port;
@@ -51,14 +52,15 @@ public class BoosterApplicationTest {
     @Before
     public void beforeTest() {
         fruitRepository.deleteAll();
-        RestAssured.baseURI = String.format("http://localhost:%d/api/fruits", port);
+        RestAssured.baseURI = String.format("http://localhost:%d/" + FRUITS_PATH, port);
     }
 
     @Test
     public void testGetAll() {
         Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
         Fruit apple = fruitRepository.save(new Fruit("Apple"));
-        when().get()
+        requestSpecification()
+                .get()
                 .then()
                 .statusCode(200)
                 .body("id", hasItems(cherry.getId(), apple.getId()))
@@ -67,7 +69,8 @@ public class BoosterApplicationTest {
 
     @Test
     public void testGetEmptyArray() {
-        when().get()
+        requestSpecification()
+                .get()
                 .then()
                 .statusCode(200)
                 .body(is("[]"));
@@ -76,7 +79,8 @@ public class BoosterApplicationTest {
     @Test
     public void testGetOne() {
         Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        when().get(String.valueOf(cherry.getId()))
+        requestSpecification()
+                .get(String.valueOf(cherry.getId()))
                 .then()
                 .statusCode(200)
                 .body("id", is(cherry.getId()))
@@ -85,16 +89,17 @@ public class BoosterApplicationTest {
 
     @Test
     public void testGetNotExisting() {
-        when().get("0")
+        requestSpecification()
+                .get("0")
                 .then()
                 .statusCode(404);
     }
 
     @Test
     public void testPost() {
-        given().contentType(ContentType.JSON)
+        requestSpecification()
+                .contentType(ContentType.JSON)
                 .body(Collections.singletonMap("name", "Cherry"))
-                .when()
                 .post()
                 .then()
                 .statusCode(201)
@@ -104,7 +109,8 @@ public class BoosterApplicationTest {
 
     @Test
     public void testPostWithWrongPayload() {
-        given().contentType(ContentType.JSON)
+        requestSpecification()
+                .contentType(ContentType.JSON)
                 .body(Collections.singletonMap("id", 0))
                 .when()
                 .post()
@@ -114,7 +120,8 @@ public class BoosterApplicationTest {
 
     @Test
     public void testPostWithNonJsonPayload() {
-        given().contentType(ContentType.XML)
+        requestSpecification()
+                .contentType(ContentType.XML)
                 .when()
                 .post()
                 .then()
@@ -123,7 +130,8 @@ public class BoosterApplicationTest {
 
     @Test
     public void testPostWithEmptyPayload() {
-        given().contentType(ContentType.JSON)
+        requestSpecification()
+                .contentType(ContentType.JSON)
                 .when()
                 .post()
                 .then()
@@ -133,7 +141,8 @@ public class BoosterApplicationTest {
     @Test
     public void testPut() {
         Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        given().contentType(ContentType.JSON)
+        requestSpecification()
+                .contentType(ContentType.JSON)
                 .body(Collections.singletonMap("name", "Lemon"))
                 .when()
                 .put(String.valueOf(cherry.getId()))
@@ -146,7 +155,8 @@ public class BoosterApplicationTest {
 
     @Test
     public void testPutNotExisting() {
-        given().contentType(ContentType.JSON)
+        requestSpecification()
+                .contentType(ContentType.JSON)
                 .body(Collections.singletonMap("name", "Lemon"))
                 .when()
                 .put("/0")
@@ -157,7 +167,8 @@ public class BoosterApplicationTest {
     @Test
     public void testPutWithWrongPayload() {
         Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        given().contentType(ContentType.JSON)
+        requestSpecification()
+                .contentType(ContentType.JSON)
                 .body(Collections.singletonMap("id", 0))
                 .when()
                 .put(String.valueOf(cherry.getId()))
@@ -168,7 +179,8 @@ public class BoosterApplicationTest {
     @Test
     public void testPutWithNonJsonPayload() {
         Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        given().contentType(ContentType.XML)
+        requestSpecification()
+                .contentType(ContentType.XML)
                 .when()
                 .put(String.valueOf(cherry.getId()))
                 .then()
@@ -178,7 +190,8 @@ public class BoosterApplicationTest {
     @Test
     public void testPutWithEmptyPayload() {
         Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        given().contentType(ContentType.JSON)
+        requestSpecification()
+                .contentType(ContentType.JSON)
                 .when()
                 .put(String.valueOf(cherry.getId()))
                 .then()
@@ -188,7 +201,8 @@ public class BoosterApplicationTest {
     @Test
     public void testDelete() {
         Fruit cherry = fruitRepository.save(new Fruit("Cherry"));
-        when().delete(String.valueOf(cherry.getId()))
+        requestSpecification()
+                .delete(String.valueOf(cherry.getId()))
                 .then()
                 .statusCode(204);
         assertFalse(fruitRepository.exists(cherry.getId()));
@@ -196,9 +210,14 @@ public class BoosterApplicationTest {
 
     @Test
     public void testDeleteNotExisting() {
-        when().delete("/0")
+        requestSpecification()
+                .delete("/0")
                 .then()
                 .statusCode(404);
     }
 
+
+    private RequestSpecification requestSpecification() {
+        return given().baseUri(String.format("http://localhost:%d/%s", port, FRUITS_PATH));
+    }
 }
