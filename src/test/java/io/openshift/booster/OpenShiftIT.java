@@ -17,59 +17,57 @@
 package io.openshift.booster;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.isEmptyString;
 
+import io.restassured.http.ContentType;
 import java.net.URL;
 import java.util.Collections;
-
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
 import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
 
+    private static final String FRUITS_PATH = "api/fruits";
+
     @AwaitRoute(path = "/health")
     @RouteURL("${app.name}")
     private URL url;
 
-    @Before
-    public void setup() {
-        RestAssured.baseURI = url + "api/fruits";
-    }
-
     @Test
     public void testPostGetAndDelete() {
-        Integer id = given()
-                .contentType(ContentType.JSON)
-                .body(Collections.singletonMap("name", "Lemon"))
-                .when()
-                .post()
-                .then()
-                .statusCode(201)
-                .body("id", not(isEmptyString()))
-                .body("name", is("Lemon"))
-                .extract()
-                .response()
-                .path("id");
+        Integer id =
+                given()
+                   .baseUri(url.toString())
+                   .contentType(ContentType.JSON)
+                   .body(Collections.singletonMap("name", "Lemon"))
+                   .post(FRUITS_PATH)
+                   .then()
+                   .statusCode(201)
+                   .body("id", not(isEmptyString()))
+                   .body("name", is("Lemon"))
+                   .extract()
+                   .response()
+                   .path("id");
 
-        when().get(id.toString())
-                .then()
-                .statusCode(200)
-                .body("id", is(id))
-                .body("name", is("Lemon"));
+        given()
+           .baseUri(url.toString())
+           .get(String.format("%s/%d",FRUITS_PATH, id))
+           .then()
+           .statusCode(200)
+           .body("id", is(id))
+           .body("name", is("Lemon"));
 
-        when().delete(id.toString())
-                .then()
-                .statusCode(204);
+        given()
+           .baseUri(url.toString())
+           .delete(String.format("%s/%d",FRUITS_PATH, id))
+           .then()
+           .statusCode(204);
     }
 
 }
