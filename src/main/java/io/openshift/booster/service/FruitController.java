@@ -55,6 +55,9 @@ public class FruitController {
 
     @GetMapping
     public List<Fruit> getAll() {
+
+        System.out.println("Getting all fruits");
+
         Spliterator<Fruit> fruits = repository.findAll()
                 .spliterator();
 
