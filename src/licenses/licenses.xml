@@ -4,11 +4,11 @@
         <dependency>
             <groupId>antlr</groupId>
             <artifactId>antlr</artifactId>
-            <version>2.7.7</version>
+            <version>2.7.7.redhat-7</version>
             <licenses>
                 <license>
-                    <name>The Antlr 2.7.7 License</name>
-                    <url>http://www.antlr2.org/license.html</url>
+                    <name>BSD 3-clause "New" or "Revised" License</name>
+                    <url>https://opensource.org/licenses/BSD-3-Clause/</url>
                 </license>
             </licenses>
         </dependency>
@@ -269,7 +269,18 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
+            <version>1.10.0.redhat-5</version>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>commons-daemon</groupId>
+            <artifactId>commons-daemon</artifactId>
+            <version>1.0.15.redhat-2</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -313,11 +324,11 @@
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.1.redhat-7</version>
             <licenses>
                 <license>
-                    <name>Plexus Classworlds License</name>
-                    <url>https://raw.githubusercontent.com/dom4j/dom4j/dom4j_1_6_1/LICENSE.txt</url>
+                    <name>BSD 3-clause "New" or "Revised" License</name>
+                    <url>https://opensource.org/licenses/BSD-3-Clause/</url>
                 </license>
             </licenses>
         </dependency>
@@ -423,7 +434,7 @@
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <version>1.0.0.redhat-6</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -494,6 +505,28 @@
             <groupId>net.minidev</groupId>
             <artifactId>json-smart</artifactId>
             <version>2.2.1</version>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.9.4</version>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-launcher</artifactId>
+            <version>1.9.4</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -690,8 +723,19 @@
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat</artifactId>
+            <version>8.5.20.redhat-6</version>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-annotations-api</artifactId>
-            <version>8.5.32</version>
+            <version>8.5.20.redhat-6</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -702,7 +746,7 @@
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
-            <version>8.5.32</version>
+            <version>8.5.20.redhat-6</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -713,7 +757,7 @@
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-juli</artifactId>
-            <version>8.5.32</version>
+            <version>8.5.20.redhat-6</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -724,7 +768,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>8.5.32</version>
+            <version>8.5.20.redhat-6</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -735,7 +779,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-el</artifactId>
-            <version>8.5.32</version>
+            <version>8.5.20.redhat-6</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -746,7 +790,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-websocket</artifactId>
-            <version>8.5.32</version>
+            <version>8.5.20.redhat-6</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -1096,6 +1140,17 @@
             </licenses>
         </dependency>
         <dependency>
+            <groupId>org.eclipse.jdt.core.compiler</groupId>
+            <artifactId>ecj</artifactId>
+            <version>4.6.1.redhat-1</version>
+            <licenses>
+                <license>
+                    <name>Eclipse Public License, Version 1.0</name>
+                    <url>http://repository.jboss.org/licenses/epl-1.0.txt</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.sisu</groupId>
             <artifactId>org.eclipse.sisu.inject</artifactId>
             <version>0.3.0.M1</version>
@@ -1153,7 +1208,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.1.10.Final</version>
+            <version>5.1.10.Final-redhat-1</version>
             <licenses>
                 <license>
                     <name>GNU Lesser General Public License v2.1 only</name>
@@ -1164,7 +1219,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.1.10.Final</version>
+            <version>5.1.10.Final-redhat-1</version>
             <licenses>
                 <license>
                     <name>GNU Lesser General Public License v2.1 only</name>
@@ -1175,7 +1230,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.3.5.Final</version>
+            <version>5.3.5.Final-redhat-2</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -1186,7 +1241,7 @@
         <dependency>
             <groupId>org.hibernate.common</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>5.0.1.Final</version>
+            <version>5.0.1.Final-redhat-2</version>
             <licenses>
                 <license>
                     <name>GNU Lesser General Public License v2.1 only</name>
@@ -1197,7 +1252,7 @@
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.0.Final</version>
+            <version>1.0.0.Final-redhat-2</version>
             <licenses>
                 <license>
                     <name>Eclipse Distribution License, Version 1.0</name>
@@ -2077,30 +2132,11 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.17</version>
+            <version>1.17.0.redhat-1</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
                     <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-            <version>1.4.01</version>
-            <licenses>
-                <license>
-                    <name>Apache License 2.0</name>
-                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                </license>
-                <license>
-                    <name>The W3C License</name>
-                    <url>http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding.zip</url>
-                </license>
-                <license>
-                    <name>Sax Public Domain Notice</name>
-                    <url>http://www.saxproject.org/copying.html</url>
                 </license>
             </licenses>
         </dependency>
