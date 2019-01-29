@@ -50,7 +50,7 @@ public class FruitController {
     public Fruit get(@PathVariable("id") Integer id) {
         verifyFruitExists(id);
 
-        return repository.findOne(id);
+        return repository.findById(id).get();
     }
 
     @GetMapping
@@ -86,26 +86,22 @@ public class FruitController {
     public void delete(@PathVariable("id") Integer id) {
         verifyFruitExists(id);
 
-        repository.delete(id);
+        repository.deleteById(id);
     }
 
     private void verifyFruitExists(Integer id) {
-        if (!repository.exists(id)) {
+        if (!repository.existsById(id)) {
             throw new NotFoundException(String.format("Fruit with id=%d was not found", id));
         }
     }
 
     private void verifyCorrectPayload(Fruit fruit) {
         if (Objects.isNull(fruit)) {
-            throw new UnsupportedMediaTypeException("Invalid payload!");
-        }
-
-        if (Objects.isNull(fruit.getName()) || fruit.getName().trim().length() == 0) {
-            throw new UnprocessableEntityException("The name is required!");
+            throw new UnsupportedMediaTypeException("Fruit cannot be null");
         }
 
         if (!Objects.isNull(fruit.getId())) {
-            throw new UnprocessableEntityException("Id was invalidly set on request.");
+            throw new UnprocessableEntityException("Id field must be generated");
         }
     }
 
