@@ -35,7 +35,7 @@ public class OpenShiftIT {
 
     private static final String FRUITS_PATH = "api/fruits";
 
-    @AwaitRoute(path = "/health")
+    @AwaitRoute(path = "/actuator/health")
     @RouteURL("${app.name}")
     private URL url;
 
