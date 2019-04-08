@@ -100,6 +100,10 @@ public class FruitController {
             throw new UnsupportedMediaTypeException("Fruit cannot be null");
         }
 
+        if (Objects.isNull(fruit.getName()) || fruit.getName().trim().length() == 0) {
+            throw new UnprocessableEntityException("The name is required!");
+        }
+
         if (!Objects.isNull(fruit.getId())) {
             throw new UnprocessableEntityException("Id field must be generated");
         }
