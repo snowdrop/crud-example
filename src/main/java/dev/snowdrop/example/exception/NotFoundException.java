@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.exception;
+package dev.snowdrop.example.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
