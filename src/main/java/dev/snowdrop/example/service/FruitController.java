@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.service;
+package dev.snowdrop.example.service;
 
-import io.openshift.booster.exception.NotFoundException;
-import io.openshift.booster.exception.UnprocessableEntityException;
-import io.openshift.booster.exception.UnsupportedMediaTypeException;
+import dev.snowdrop.example.exception.NotFoundException;
+import dev.snowdrop.example.exception.UnprocessableEntityException;
+import dev.snowdrop.example.exception.UnsupportedMediaTypeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
