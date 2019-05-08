@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -23,8 +23,8 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertFalse;
 
-import io.openshift.booster.service.Fruit;
-import io.openshift.booster.service.FruitRepository;
+import dev.snowdrop.example.service.Fruit;
+import dev.snowdrop.example.service.FruitRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
@@ -39,7 +39,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BoosterApplicationTest {
+public class ExampleApplicationTest {
 
     private static final String FRUITS_PATH = "api/fruits";
 
