@@ -23,7 +23,7 @@
   </parent>
   <groupId>dev.snowdrop.example</groupId>
   <artifactId>crud</artifactId>
-  <version>1.5.19-3-SNAPSHOT</version>
+  <version>1.5.19-4-SNAPSHOT</version>
   <name>Spring Boot - CRUD Example</name>
   <description>Spring Boot - CRUD Example</description>
   <properties>
