@@ -14,10 +14,10 @@ items:
       local: false
     tags:
     - annotations:
-        openshift.io/imported-from: openshift/postgresql-92-centos7
+        openshift.io/imported-from: centos/postgresql-10-centos7
       from:
         kind: DockerImage
-        name: openshift/postgresql-92-centos7
+        name: centos/postgresql-10-centos7
       generation: null
       importPolicy: {}
       name: latest
@@ -58,7 +58,7 @@ items:
             value: secret
           - name: POSTGRESQL_USER
             value: luke
-          image: openshift/postgresql-92-centos7
+          image: centos/postgresql-10-centos7
           name: my-database
           ports:
           - containerPort: 5432
