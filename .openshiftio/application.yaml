@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/part-of: crud-example
     app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
-    app.kubernetes.io/runtime: snowdrop
+    app.kubernetes.io/runtime: spring-boot
     app.kubernetes.io/name: crud-service
     app.kubernetes.io/component: frontend
   annotations:
@@ -62,7 +62,7 @@ objects:
     labels:
       app.kubernetes.io/part-of: crud-example
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
       annotations:
@@ -87,7 +87,7 @@ objects:
       app.kubernetes.io/part-of: crud-example
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
@@ -140,7 +140,7 @@ objects:
       app.kubernetes.io/part-of: crud-example
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
@@ -160,7 +160,7 @@ objects:
       app.kubernetes.io/part-of: crud-example
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
@@ -187,7 +187,7 @@ objects:
       app.kubernetes.io/part-of: crud-example
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
@@ -214,7 +214,7 @@ objects:
           app.kubernetes.io/part-of: crud-example
           app.kubernetes.io/name: crud-service
           app.kubernetes.io/component: frontend
-          app.kubernetes.io/runtime: snowdrop
+          app.kubernetes.io/runtime: spring-boot
           app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
         annotations:
           app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
@@ -283,7 +283,7 @@ objects:
       app.kubernetes.io/part-of: crud-example
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
-      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
