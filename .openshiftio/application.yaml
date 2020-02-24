@@ -2,12 +2,20 @@ apiVersion: v1
 kind: Template
 metadata:
   name: crud
+  labels:
+    app.kubernetes.io/part-of: crud-example
+    app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    app.kubernetes.io/runtime: snowdrop
+    app.kubernetes.io/name: crud-service
+    app.kubernetes.io/component: frontend
   annotations:
     iconClass: icon-spring
     tags: spring-boot, rest, crud, java, microservice
     openshift.io/display-name: Spring Boot - REST HTTP and CRUD
     openshift.io/provider-display-name: "Red Hat, Inc."
     openshift.io/documentation-url: "https://appdev.prod-preview.openshift.io/docs/spring-boot-runtime.html#mission-crud-spring-boot-tomcat"
+    app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
+    app.kubernetes.io/connects-to: crud-db
     description: >-
       The Relational Database Backend example expands on the REST API Level 0 example to provide a basic example of performing create, read, update and delete (CRUD) operations on a PostgreSQL database using a simple HTTP API.
       CRUD operations are the four basic functions of persistent storage, widely used when developing an HTTP API dealing with a database.
@@ -51,6 +59,15 @@ objects:
   kind: ImageStream
   metadata:
     name: crud
+    labels:
+      app.kubernetes.io/part-of: crud-example
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/name: crud-service
+      app.kubernetes.io/component: frontend
+      annotations:
+        app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
+        app.kubernetes.io/connects-to: crud-db
   spec: {}
 - apiVersion: v1
   kind: ImageStream
@@ -66,6 +83,15 @@ objects:
   kind: BuildConfig
   metadata:
     name: crud
+    labels:
+      app.kubernetes.io/part-of: crud-example
+      app.kubernetes.io/name: crud-service
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
+      app.kubernetes.io/connects-to: crud-db
   spec:
     output:
       to:
@@ -111,6 +137,14 @@ objects:
       provider: snowdrop
       version: "BOOSTER_VERSION"
       group: dev.snowdrop.example
+      app.kubernetes.io/part-of: crud-example
+      app.kubernetes.io/name: crud-service
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
+      app.kubernetes.io/connects-to: crud-db
     name: my-database-secret
   stringData:
     user: luke
@@ -123,6 +157,14 @@ objects:
       provider: snowdrop
       version: "BOOSTER_VERSION"
       group: dev.snowdrop.example
+      app.kubernetes.io/part-of: crud-example
+      app.kubernetes.io/name: crud-service
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
+      app.kubernetes.io/connects-to: crud-db
     name: crud
   spec:
     ports:
@@ -142,6 +184,14 @@ objects:
       provider: snowdrop
       version: "BOOSTER_VERSION"
       group: dev.snowdrop.example
+      app.kubernetes.io/part-of: crud-example
+      app.kubernetes.io/name: crud-service
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
+      app.kubernetes.io/connects-to: crud-db
     name: rest-crud-example
   spec:
     replicas: 1
@@ -161,6 +211,14 @@ objects:
           provider: snowdrop
           version: "BOOSTER_VERSION"
           group: dev.snowdrop.example
+          app.kubernetes.io/part-of: crud-example
+          app.kubernetes.io/name: crud-service
+          app.kubernetes.io/component: frontend
+          app.kubernetes.io/runtime: snowdrop
+          app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+        annotations:
+          app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
+          app.kubernetes.io/connects-to: crud-db
       spec:
         containers:
         - env:
@@ -222,6 +280,14 @@ objects:
       provider: snowdrop
       version: "BOOSTER_VERSION"
       group: dev.snowdrop.example
+      app.kubernetes.io/part-of: crud-example
+      app.kubernetes.io/name: crud-service
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/runtime: snowdrop
+      app.kubernetes.io/runtime-version: "SPRING_BOOT_VERSION"
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
+      app.kubernetes.io/connects-to: crud-db
     name: crud
   spec:
     port:

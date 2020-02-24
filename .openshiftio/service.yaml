@@ -8,6 +8,11 @@ items:
     creationTimestamp: null
     labels:
       app: my-database
+      app.kubernetes.io/part-of: crud-example
+      app.kubernetes.io/name: crud-db
+      app.kubernetes.io/component: database
+      app.kubernetes.io/runtime: postgresql
+      app.kubernetes.io/runtime-version: 10
     name: my-database
   spec:
     lookupPolicy:
@@ -33,6 +38,11 @@ items:
     creationTimestamp: null
     labels:
       app: my-database
+      app.kubernetes.io/part-of: crud-example
+      app.kubernetes.io/name: crud-db
+      app.kubernetes.io/component: database
+      app.kubernetes.io/runtime: postgresql
+      app.kubernetes.io/runtime-version: 10
     name: my-database
   spec:
     replicas: 1
@@ -49,6 +59,11 @@ items:
         labels:
           app: my-database
           deploymentconfig: my-database
+          app.kubernetes.io/part-of: crud-example
+          app.kubernetes.io/name: crud-db
+          app.kubernetes.io/component: database
+          app.kubernetes.io/runtime: postgresql
+          app.kubernetes.io/runtime-version: 10
       spec:
         containers:
         - env:
@@ -96,6 +111,11 @@ items:
     creationTimestamp: null
     labels:
       app: my-database
+      app.kubernetes.io/part-of: crud-example
+      app.kubernetes.io/name: crud-db
+      app.kubernetes.io/component: database
+      app.kubernetes.io/runtime: postgresql
+      app.kubernetes.io/runtime-version: 10
     name: my-database
   spec:
     ports:
