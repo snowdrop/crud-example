@@ -65,9 +65,9 @@ objects:
       app.kubernetes.io/runtime: spring-boot
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
-      annotations:
-        app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
-        app.kubernetes.io/connects-to: crud-db
+    annotations:
+      app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
+      app.kubernetes.io/connects-to: crud-db
   spec: {}
 - apiVersion: v1
   kind: ImageStream
