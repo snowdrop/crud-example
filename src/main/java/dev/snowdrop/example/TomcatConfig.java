@@ -18,7 +18,7 @@ public class TomcatConfig {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
         Connector ajpConnector = new Connector("org.apache.coyote.ajp.AjpNioProtocol");
         AjpNioProtocol protocol= (AjpNioProtocol)ajpConnector.getProtocolHandler();
-        protocol.setSecret("unsecret");
+        protocol.setSecret("myapjsecret");
         ajpConnector.setPort(ajpPort);
         ajpConnector.setSecure(true);
         tomcat.addAdditionalTomcatConnectors(ajpConnector);
