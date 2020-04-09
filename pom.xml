@@ -33,6 +33,7 @@
     <arquillian-cube.version>1.15.3</arquillian-cube.version>
     <openjdk18-openshift.version>latest</openjdk18-openshift.version>
     <postgresql.version>9.4.1212</postgresql.version>
+    <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
     <fabric8.generator.from>
       registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:${openjdk18-openshift.version}
     </fabric8.generator.from>
