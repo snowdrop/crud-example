@@ -30,7 +30,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <arquillian.version>1.4.0.Final</arquillian.version>
-    <arquillian-cube.version>1.15.3</arquillian-cube.version>
+    <arquillian-cube.version>1.18.2</arquillian-cube.version>
     <openjdk18-openshift.version>latest</openjdk18-openshift.version>
     <postgresql.version>9.4.1212</postgresql.version>
     <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
@@ -207,6 +207,7 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>fabric8-maven-plugin</artifactId>
+            <version>4.4.0</version>
             <executions>
               <execution>
                 <id>fmp</id>
