@@ -61,7 +61,7 @@ jobs:
 
             oc login -u admin -p admin
 
-            timeout 600s bash -c 'while [[ $(oc get pod -n default -o json | jq  ".items[] | select(.metadata.name | contains(\"registry\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") != "Running" ]]; do sleep 20; echo "...waiting for docker registry to be running..."; done; echo ""'
+            timeout 600s bash -c 'while [[ $(oc get pod -n default -o json | jq  ".items[] | select(.metadata.name | contains(\"registry\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") != "Running" ]]; do sleep 20; echo "...waiting for docker registry to be running..."; done; echo "docker registry is running."'
 
             # deploy application
             oc new-project s2i
