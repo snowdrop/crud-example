@@ -68,9 +68,9 @@ jobs:
             oc create -f .openshiftio/application.yaml
             oc new-app --template=crud -p SOURCE_REPOSITORY_URL=${SOURCE_REPOSITORY_URL} -p SOURCE_REPOSITORY_REF=${SOURCE_REPOSITORY_REF}
 
-            sleep 30 # needed in order to bypass the 'Pending' state
+            sleep 60 # needed in order to bypass the 'Pending' state
             # wait for the app to stand up
-            timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" ]]; do sleep 20; done; echo ""'
+            timeout 600s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" ]]; do sleep 20; done; echo ""'
 
             # launch the tests without deploying the application
             ./mvnw -s .circleci/settings.xml verify -Dfabric8.skip=true -Popenshift,openshift-it
