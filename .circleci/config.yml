@@ -59,6 +59,8 @@ jobs:
               SOURCE_REPOSITORY_REF=${CIRCLE_SHA1}
             fi
 
+            oc login -u admin -p admin
+
             # deploy application
             oc new-project s2i
 
