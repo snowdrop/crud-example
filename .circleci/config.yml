@@ -62,6 +62,9 @@ jobs:
             # deploy application
             oc new-project s2i
 
+            oc import-image redhat-openjdk-18/openjdk18-openshift:latest --from=registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:latest --confirm
+            oc tag --source docker registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:latest openjdk18-openshift:latest
+
             # deploy database
             oc create -f .openshiftio/service.yaml
 
