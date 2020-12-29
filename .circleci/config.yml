@@ -76,7 +76,7 @@ jobs:
 
             sleep 60 # needed in order to bypass the 'Pending' state
             # wait for the app to stand up
-            timeout 600s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" ]]; do sleep 20; done; echo ""'
+            timeout 600s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" || $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Completed" ]]; do sleep 20; echo "...waiting for the build to finish..."; done; echo "...build is finished or timeout has been reached!"'
 
             # launch the tests without deploying the application
             ./mvnw -s .circleci/settings.xml verify -Dfabric8.skip=true -Popenshift,openshift-it
