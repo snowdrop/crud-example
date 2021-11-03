@@ -205,7 +205,7 @@ public class ExampleApplicationTest {
                 .delete(String.valueOf(cherry.getId()))
                 .then()
                 .statusCode(204);
-        assertFalse(fruitRepository.exists(cherry.getId()));
+        assertFalse(fruitRepository.existsById(cherry.getId()));
     }
 
     @Test
