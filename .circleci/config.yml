@@ -62,9 +62,11 @@ jobs:
             # deploy application
             oc new-project s2i
 
-            # deploy database
-            oc create -f .openshiftio/service.yaml
+            # deploy database: won't be needed in Dekorate 1.7.0. Related to https://github.com/dekorateio/dekorate/pull/798
+            oc create -f .openshiftio/database.yaml
+            timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"my-database\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") != "Running" ]]; do sleep 20; done; echo ""'
 
+            # deploy application
             oc create -f .openshiftio/application.yaml
             oc new-app --template=crud -p SOURCE_REPOSITORY_URL=${SOURCE_REPOSITORY_URL} -p SOURCE_REPOSITORY_REF=${SOURCE_REPOSITORY_REF}
 
@@ -73,7 +75,7 @@ jobs:
             timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" ]]; do sleep 20; done; echo ""'
 
             # launch the tests without deploying the application
-            ./mvnw -s .circleci/settings.xml verify -Dfabric8.skip=true -Popenshift,openshift-it
+            ./mvnw -s .circleci/settings.xml verify -Popenshift,openshift-it -Dunmanaged-test=true
 
       - run:
           name: Cleanup s2i build
@@ -86,9 +88,14 @@ jobs:
 
       - run:
           name: run tests against fmp build
-          command:  |
+          command: |
             oc new-project fmp
-            .circleci/run_tests_with_fmp.sh -s .circleci/settings.xml
+
+            # deploy database: won't be needed in Dekorate 1.7.0. Related to https://github.com/dekorateio/dekorate/pull/798
+            oc create -f .openshiftio/database.yaml
+            timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"my-database\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") != "Running" ]]; do sleep 20; done; echo ""'
+
+            .circleci/run_tests_with_dekorate.sh -s .circleci/settings.xml
           no_output_timeout: 3600
 
 workflows:
