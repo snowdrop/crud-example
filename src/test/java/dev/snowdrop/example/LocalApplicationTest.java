@@ -19,29 +19,26 @@ package dev.snowdrop.example;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.junit.Assert.assertFalse;
+import static org.hamcrest.Matchers.emptyString;
+import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import dev.snowdrop.example.service.Fruit;
 import dev.snowdrop.example.service.FruitRepository;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import java.util.Collections;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ExampleApplicationTest {
-
-    private static final String FRUITS_PATH = "api/fruits";
+public class LocalApplicationTest extends AbstractApplicationTest {
 
     @Value("${local.server.port}")
     private int port;
@@ -49,10 +46,14 @@ public class ExampleApplicationTest {
     @Autowired
     private FruitRepository fruitRepository;
 
-    @Before
+    @Override
+    protected String baseURI() {
+        return String.format("http://localhost:%d", port);
+    }
+
+    @BeforeEach
     public void beforeTest() {
         fruitRepository.deleteAll();
-        RestAssured.baseURI = String.format("http://localhost:%d/" + FRUITS_PATH, port);
     }
 
     @Test
@@ -103,7 +104,7 @@ public class ExampleApplicationTest {
                 .post()
                 .then()
                 .statusCode(201)
-                .body("id", not(isEmptyString()))
+                .body("id", is(not(emptyString())))
                 .body("name", is("Cherry"));
     }
 
@@ -216,8 +217,7 @@ public class ExampleApplicationTest {
                 .statusCode(404);
     }
 
-
     private RequestSpecification requestSpecification() {
-        return given().baseUri(String.format("http://localhost:%d/%s", port, FRUITS_PATH));
+        return given().baseUri(baseURI() + FRUITS_PATH);
     }
 }

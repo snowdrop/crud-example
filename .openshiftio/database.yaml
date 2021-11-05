@@ -8,11 +8,6 @@ items:
     creationTimestamp: null
     labels:
       app: my-database
-      app.kubernetes.io/part-of: crud-example
-      app.kubernetes.io/name: crud-db
-      app.kubernetes.io/component: database
-      app.openshift.io/runtime: postgresql
-      app.openshift.io/runtime-version: "10"
     name: my-database
   spec:
     lookupPolicy:
@@ -38,11 +33,6 @@ items:
     creationTimestamp: null
     labels:
       app: my-database
-      app.kubernetes.io/part-of: crud-example
-      app.kubernetes.io/name: crud-db
-      app.kubernetes.io/component: database
-      app.openshift.io/runtime: postgresql
-      app.openshift.io/runtime-version: "10"
     name: my-database
   spec:
     replicas: 1
@@ -59,29 +49,24 @@ items:
         labels:
           app: my-database
           deploymentconfig: my-database
-          app.kubernetes.io/part-of: crud-example
-          app.kubernetes.io/name: crud-db
-          app.kubernetes.io/component: database
-          app.openshift.io/runtime: postgresql
-          app.openshift.io/runtime-version: "10"
       spec:
         containers:
         - env:
-          - name: POSTGRESQL_DATABASE
-            value: my_data
-          - name: POSTGRESQL_PASSWORD
-            value: secret
-          - name: POSTGRESQL_USER
-            value: luke
+            - name: POSTGRESQL_DATABASE
+              value: my_data
+            - name: POSTGRESQL_PASSWORD
+              value: secret
+            - name: POSTGRESQL_USER
+              value: luke
           image: centos/postgresql-10-centos7
           name: my-database
           ports:
-          - containerPort: 5432
-            protocol: TCP
-          resources: {}
+            - containerPort: 5432
+              protocol: TCP
+          resources: { }
           volumeMounts:
-          - mountPath: /var/lib/pgsql/data
-            name: my-database-volume-1
+            - mountPath: /var/lib/pgsql/data
+              name: my-database-volume-1
         volumes:
         - emptyDir: {}
           name: my-database-volume-1
@@ -111,11 +96,6 @@ items:
     creationTimestamp: null
     labels:
       app: my-database
-      app.kubernetes.io/part-of: crud-example
-      app.kubernetes.io/name: crud-db
-      app.kubernetes.io/component: database
-      app.openshift.io/runtime: postgresql
-      app.openshift.io/runtime-version: "10"
     name: my-database
   spec:
     ports:
