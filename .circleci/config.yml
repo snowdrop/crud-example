@@ -87,9 +87,9 @@ jobs:
             echo "Cleaned up s2i build"
 
       - run:
-          name: run tests against fmp build
+          name: run tests against Dekorate build
           command: |
-            oc new-project fmp
+            oc new-project dekorate
 
             # deploy database: won't be needed in Dekorate 1.7.0. Related to https://github.com/dekorateio/dekorate/pull/798
             oc create -f .openshiftio/database.yaml
