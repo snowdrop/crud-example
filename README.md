@@ -5,23 +5,23 @@ https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-crud-spring-bo
 ## Table of Contents
 
 * [CRUD Spring Boot Example](#crud-spring-boot-example)
-    * [Deploying application on OpenShift using Dekorate:](#deploying-application-on-openshift-using-dekorate)
-    * [Running Tests on OpenShift using Dekorate:](#running-tests-on-openshift-using-dekorate)
-    * [Running Tests on OpenShift using S2i from Source:](#running-tests-on-openshift-using-s2i-from-source)
+    * [Deploying application on OpenShift using Dekorate](#deploying-application-on-openshift-using-dekorate)
+    * [Running Tests on OpenShift using Dekorate](#running-tests-on-openshift-using-dekorate)
+    * [Running Tests on OpenShift using S2i from Source](#running-tests-on-openshift-using-s2i-from-source)
 
-## Deploying application on OpenShift using Dekorate:
+## Deploying application on OpenShift using Dekorate
 
 ```
 mvn clean verify -Popenshift -Ddekorate.push=true
 ```
 
-## Running Tests on OpenShift using Dekorate:
+## Running Tests on OpenShift using Dekorate
 
 ```
 ./run_tests_with_dekorate.sh
 ```
 
-## Running Tests on OpenShift using S2i from Source:
+## Running Tests on OpenShift using S2i from Source
 
 ```
 ./run_tests_with_s2i.sh
