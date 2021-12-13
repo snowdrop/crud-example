@@ -2,19 +2,22 @@
 SOURCE_REPOSITORY_URL=${1:-https://github.com/snowdrop/crud-example}
 SOURCE_REPOSITORY_REF=${2:-sb-2.4.x}
 
+source scripts/waitFor.sh
+
 # deploy database
 oc create -f .openshiftio/database.yaml
-sleep 30 # needed in order to bypass the 'Pending' state
-timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"my-database\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") != "Running" ]]; do sleep 20; done; echo ""'
-oc logs $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"my-database\"))  | .metadata  " | jq -rs "sort_by(.startTme) | last | .name")
+if [[ $(waitFor "my-database" "app") -eq 1 ]] ; then
+  echo "Database failed to deploy. Aborting"
+  exit 1
+fi
 
 # deploy application
 oc create -f .openshiftio/application.yaml
 oc new-app --template=crud -p SOURCE_REPOSITORY_URL=$SOURCE_REPOSITORY_URL -p SOURCE_REPOSITORY_REF=$SOURCE_REPOSITORY_REF
-
-sleep 30 # needed in order to bypass the 'Pending' state
-# wait for the app to stand up
-timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"build\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" ]]; do sleep 20; done; echo ""'
+if [[ $(waitFor "crud" "app") -eq 1 ]] ; then
+  echo "Application failed to deploy. Aborting"
+  exit 1
+fi
 
 # Run OpenShift Tests
 ./mvnw -s .github/mvn-settings.xml clean verify -Popenshift,openshift-it -Dunmanaged-test=true
