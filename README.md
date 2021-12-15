@@ -11,6 +11,14 @@ https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-crud-spring-bo
 
 ## Deploying application on OpenShift using Dekorate
 
+Before deploying the application using Dekorate, make sure you have deployed the database first:
+
+```
+oc create -f .openshiftio/database.yaml
+```
+
+Once the database is up and running, we can deploy the application using Dekorate:
+
 ```
 mvn clean verify -Popenshift -Ddekorate.deploy=true
 ```
