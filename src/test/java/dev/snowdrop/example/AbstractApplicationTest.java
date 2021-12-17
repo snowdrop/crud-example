@@ -21,13 +21,26 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.not;
 
-import io.restassured.http.ContentType;
 import java.util.Collections;
+
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
+
+import io.restassured.http.ContentType;
 
 public abstract class AbstractApplicationTest {
 
     protected static final String FRUITS_PATH = "/api/fruits";
+
+    private static final String INDEX_HTML = "index.html";
+
+    @Test
+    public void testGetIndex() {
+        given()
+                .baseUri(baseURI())
+                .get(INDEX_HTML)
+                .then().statusCode(HttpStatus.SC_OK);
+    }
 
     @Test
     public void testPostGetAndDelete() {
