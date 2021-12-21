@@ -4,7 +4,7 @@ metadata:
   name: crud
   labels:
     app.kubernetes.io/part-of: crud-example
-    app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+    app.openshift.io/runtime-version: "2.4.9"
     app.openshift.io/runtime: rh-spring-boot
     app.kubernetes.io/name: crud-service
     app.kubernetes.io/component: frontend
@@ -61,7 +61,7 @@ objects:
     name: crud
     labels:
       app.kubernetes.io/part-of: crud-example
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.4.9"
       app.openshift.io/runtime: rh-spring-boot
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
@@ -88,7 +88,7 @@ objects:
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
       app.openshift.io/runtime: rh-spring-boot
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.4.9"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
       app.kubernetes.io/connects-to: crud-db
@@ -96,7 +96,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: crud:BOOSTER_VERSION
+        name: crud:2.4.9-12
     postCommit: {}
     resources: {}
     source:
@@ -135,13 +135,13 @@ objects:
     labels:
       app: crud
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.4.9-12"
       group: dev.snowdrop.example
       app.kubernetes.io/part-of: crud-example
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
       app.openshift.io/runtime: rh-spring-boot
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.4.9"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
       app.kubernetes.io/connects-to: crud-db
@@ -155,13 +155,13 @@ objects:
     labels:
       app: crud
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.4.9-12"
       group: dev.snowdrop.example
       app.kubernetes.io/part-of: crud-example
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
       app.openshift.io/runtime: rh-spring-boot
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.4.9"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
       app.kubernetes.io/connects-to: crud-db
@@ -182,13 +182,13 @@ objects:
     labels:
       app: crud
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.4.9-12"
       group: dev.snowdrop.example
       app.kubernetes.io/part-of: crud-example
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
       app.openshift.io/runtime: rh-spring-boot
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.4.9"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
       app.kubernetes.io/connects-to: crud-db
@@ -209,13 +209,13 @@ objects:
         labels:
           app: crud
           provider: snowdrop
-          version: "BOOSTER_VERSION"
+          version: "2.4.9-12"
           group: dev.snowdrop.example
           app.kubernetes.io/part-of: crud-example
           app.kubernetes.io/name: crud-service
           app.kubernetes.io/component: frontend
           app.openshift.io/runtime: rh-spring-boot
-          app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+          app.openshift.io/runtime-version: "2.4.9"
         annotations:
           app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
           app.kubernetes.io/connects-to: crud-db
@@ -242,7 +242,7 @@ objects:
               value: org.postgresql.Driver
             - name: spring.jpa.hibernate.ddl-auto
               value: create
-          image: crud:BOOSTER_VERSION
+          image: crud:2.4.9-12
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -274,7 +274,7 @@ objects:
         - spring-boot
         from:
           kind: ImageStreamTag
-          name: crud:BOOSTER_VERSION
+          name: crud:2.4.9-12
       type: ImageChange
 - apiVersion: v1
   kind: Route
@@ -282,13 +282,13 @@ objects:
     labels:
       app: crud
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.4.9-12"
       group: dev.snowdrop.example
       app.kubernetes.io/part-of: crud-example
       app.kubernetes.io/name: crud-service
       app.kubernetes.io/component: frontend
       app.openshift.io/runtime: rh-spring-boot
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.4.9"
     annotations:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/crud-example.git
       app.kubernetes.io/connects-to: crud-db
