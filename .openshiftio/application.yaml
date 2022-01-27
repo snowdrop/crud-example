@@ -294,6 +294,7 @@ objects:
       app.kubernetes.io/connects-to: crud-db
     name: crud
   spec:
+    path: /
     port:
       targetPort: 8080
     to:
