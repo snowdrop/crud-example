@@ -1,0 +1,20 @@
+spring-boot-example-app:
+  name: crud
+  version: 2.5.8-1-SNAPSHOT
+  env:
+    - name: spring.datasource.url
+      value: jdbc:postgresql://my-database:5432/my_data
+    - name: spring.datasource.username
+      value: luke
+    - name: spring.datasource.password
+      value: secret
+    - name: spring.datasource.driver-class-name
+      value: org.postgresql.Driver
+    - name: spring.jpa.hibernate.ddl-auto
+      value: create
+postgres:
+  name: my-database
+  schema: my_data
+  image: quay.io/bitnami/postgresql:13.4.0
+  user: luke
+  password: secret

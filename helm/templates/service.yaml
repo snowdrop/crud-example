@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.postgres.name }}
+  name: {{ .Values.postgres.name }}
+spec:
+  ports:
+    - name: "5432-tcp"
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    app: {{ .Values.postgres.name }}
+    deploymentconfig: {{ .Values.postgres.name }}
