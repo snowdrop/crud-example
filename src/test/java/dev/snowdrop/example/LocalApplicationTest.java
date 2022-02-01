@@ -23,11 +23,8 @@ import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import dev.snowdrop.example.service.Fruit;
-import dev.snowdrop.example.service.FruitRepository;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 import java.util.Collections;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,6 +32,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import dev.snowdrop.example.service.Fruit;
+import dev.snowdrop.example.service.FruitRepository;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -116,7 +118,8 @@ public class LocalApplicationTest extends AbstractApplicationTest {
                 .when()
                 .post()
                 .then()
-                .statusCode(422);
+                .statusCode(422)
+                .body("message", is("The name is required!"));
     }
 
     @Test
