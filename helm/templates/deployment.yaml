@@ -1,24 +1,21 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  annotations:
-    openshift.io/generated-by: OpenShiftNewApp
-  creationTimestamp: null
   labels:
     app: {{ .Values.postgres.name }}
+    deployment: {{ .Values.postgres.name }}
   name: {{ .Values.postgres.name }}
 spec:
   replicas: 1
   selector:
-    app: {{ .Values.postgres.name }}
-    deploymentconfig: {{ .Values.postgres.name }}
+    matchLabels:
+      app: {{ .Values.postgres.name }}
+      deployment: {{ .Values.postgres.name }}
   template:
     metadata:
-      annotations:
-        openshift.io/generated-by: OpenShiftNewApp
       labels:
         app: {{ .Values.postgres.name }}
-        deploymentconfig: {{ .Values.postgres.name }}
+        deployment: {{ .Values.postgres.name }}
     spec:
       containers:
       - env:
@@ -33,21 +30,9 @@ spec:
         ports:
           - containerPort: 5432
             protocol: TCP
-        resources: { }
         volumeMounts:
           - mountPath: /var/lib/pgsql/data
             name: "{{ .Values.postgres.name }}-volume-1"
       volumes:
         - emptyDir: {}
           name: "{{ .Values.postgres.name }}-volume-1"
-  test: false
-  triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - {{ .Values.postgres.name }}
-        from:
-          kind: ImageStreamTag
-          name: "{{ .Values.postgres.name }}:latest"
-      type: ImageChange
