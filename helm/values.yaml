@@ -1,11 +1,8 @@
-spring-boot-example-app:
+app:
   name: crud
   version: 2.5.8-1-SNAPSHOT
-  s2i:
-    # Default s2i source repository
-    source:
-      repo: https://github.com/snowdrop/crud-example
-      ref: sb-2.5.x
+  docker:
+    image: quay.io/snowdrop/spring-boot-crud-example:2.5.8
   env:
     - name: spring.datasource.url
       value: jdbc:postgresql://my-database:5432/my_data

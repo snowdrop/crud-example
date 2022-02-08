@@ -44,6 +44,11 @@
   </licenses>
   <repositories>
     <repository>
+      <id>maven-central</id>
+      <name>Public Maven Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </repository>
+    <repository>
       <id>redhat-ga</id>
       <name>Red Hat GA Repository</name>
       <url>https://maven.repository.redhat.com/ga/</url>
@@ -55,6 +60,11 @@
     </repository>
   </repositories>
   <pluginRepositories>
+    <pluginRepository>
+      <id>maven-central</id>
+      <name>Public Maven Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </pluginRepository>
     <pluginRepository>
       <id>redhat-ga</id>
       <name>Red Hat GA Repository</name>
@@ -93,6 +103,17 @@
       <groupId>io.dekorate</groupId>
       <artifactId>openshift-junit</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.dekorate</groupId>
+      <artifactId>kubernetes-junit</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>io.dekorate</groupId>
+          <artifactId>docker-annotations</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
@@ -189,6 +210,24 @@
       </properties>
     </profile>
     <profile>
+      <id>kubernetes</id>
+      <dependencies>
+        <dependency>
+          <groupId>io.dekorate</groupId>
+          <artifactId>kubernetes-spring-starter</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <version>${postgresql.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+      <properties>
+        <db.name>PostgreSQL</db.name>
+      </properties>
+    </profile>
+    <profile>
       <id>openshift-it</id>
       <build>
         <plugins>
@@ -201,6 +240,34 @@
                 <app.name>${project.artifactId}</app.name>
               </systemPropertyVariables>
               <classesDirectory>${project.build.directory}/${project.build.finalName}.${project.packaging}.original</classesDirectory>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>kubernetes-it</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${maven-failsafe-plugin.version}</version>
+            <configuration>
+              <systemPropertyVariables>
+                <app.name>${project.artifactId}</app.name>
+              </systemPropertyVariables>
+              <includes>
+                <include>**/*KubernetesIT.class</include>
+              </includes>
             </configuration>
             <executions>
               <execution>
