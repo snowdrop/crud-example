@@ -27,7 +27,7 @@ items:
               value: secret
             - name: POSTGRESQL_USER
               value: luke
-          image: quay.io/bitnami/postgresql:13.4.0
+          image: quay.io/centos7/postgresql-13-centos7:1
           name: my-database
           ports:
             - containerPort: 5432
