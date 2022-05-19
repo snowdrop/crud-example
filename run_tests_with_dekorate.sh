@@ -9,5 +9,17 @@ if [[ $(waitFor "my-database" "app") -eq 1 ]] ; then
   exit 1
 fi
 
+SB_VERSION_SWITCH=""
+
+while getopts v: option
+do
+    case "${option}"
+        in
+        v)SB_VERSION_SWITCH="-Dspring-boot.version=${OPTARG}";;
+    esac
+done
+
+echo "SB_VERSION_SWITCH: ${SB_VERSION_SWITCH}"
+
 # Run OpenShift Tests
-./mvnw -s .github/mvn-settings.xml clean verify -Popenshift,openshift-it
+eval "./mvnw -s .github/mvn-settings.xml clean verify -Popenshift,openshift-it ${SB_VERSION_SWITCH}"
