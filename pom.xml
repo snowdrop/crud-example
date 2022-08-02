@@ -27,7 +27,7 @@
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
     <postgresql.version>42.3.3</postgresql.version>
-    <spring-boot.version>2.5.12</spring-boot.version>
+    <spring-boot.version>2.7.2</spring-boot.version>
     <dekorate.version>2.9.3</dekorate.version>
   </properties>
   <licenses>
