@@ -22,11 +22,11 @@
   <name>Dekorate - Spring Boot - CRUD Example</name>
   <description>Dekorate - Spring Boot - CRUD Example</description>
   <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
-    <postgresql.version>42.3.3</postgresql.version>
+    <postgresql.version>42.4.1</postgresql.version>
     <spring-boot.version>2.7.2</spring-boot.version>
     
     <dekorate.version>2.11.0</dekorate.version>
