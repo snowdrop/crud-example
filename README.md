@@ -28,8 +28,14 @@ oc create -f .openshiftio/database.yaml
 
 Once the database is up and running, we can deploy the application using Dekorate:
 
-```
+```bash
 mvn clean verify -Popenshift -Ddekorate.deploy=true
+```
+
+To deploy the application using a specific Spring Boot version use the `-Dspring-boot.version` switch.
+
+```bash
+mvn clean verify -Popenshift -Ddekorate.deploy=true -Dspring-boot.version=2.6.7
 ```
 
 ## Deploying application on OpenShift using Helm
@@ -71,9 +77,17 @@ helm uninstall crud
 
 ## Running Tests on OpenShift using Dekorate
 
-```
+```bash
 ./run_tests_with_dekorate.sh
 ```
+
+Alternativelly, tests can be executed against a specific Spring Boot or Dekorate version by passing the
+version as a `-D<variable property name>=value` parameter. For instance overriding both the Spring Boot and the Dekorate versions using their corresponding version properties is done the following way:
+
+```bash
+./run_tests_with_dekorate.sh -Dspring-boot.version=2.7.3 -Ddekorate.version=2.11.1
+```
+
 
 ## Running Tests on OpenShift using S2i from Source
 
