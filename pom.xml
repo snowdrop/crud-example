@@ -30,11 +30,6 @@
     <spring-boot.version>2.7.2</spring-boot.version>
     
     <dekorate.version>3.0.2</dekorate.version>
-    
-    <!-- Overriden from Spring Boot -->
-    <hibernate.version>5.6.10.Final</hibernate.version>
-    <hibernate-validator.version>6.2.3.Final</hibernate-validator.version>
-    <tomcat.version>9.0.65</tomcat.version>
   </properties>
   
   <licenses>
@@ -104,63 +99,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-    <!-- Tomcat -->
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-core</artifactId>
-      <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-el</artifactId>
-      <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-jasper</artifactId>
-      <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-websocket</artifactId>
-      <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-jdbc</artifactId>
-      <version>${tomcat.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <!-- <exclusions>
-        <exclusion>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-core</artifactId>
-        </exclusion>
-      </exclusions> -->
     </dependency>
-    <!-- Hibernate Validator-->
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <version>${hibernate-validator.version}</version>
-    </dependency>
-
-    <!-- Hibernate -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>${hibernate.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-jta_1.1_spec</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
@@ -184,12 +126,6 @@
       <groupId>io.dekorate</groupId>
       <artifactId>kubernetes-junit</artifactId>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>io.dekorate</groupId>
-          <artifactId>docker-annotations</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
@@ -303,6 +239,24 @@
       </properties>
     </profile>
     <profile>
+      <id>helm</id>
+      <dependencies>
+        <dependency>
+          <groupId>io.dekorate</groupId>
+          <artifactId>helm-annotations</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <version>${postgresql.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+      <properties>
+        <db.name>PostgreSQL</db.name>
+      </properties>
+    </profile>
+    <profile>
       <id>openshift-it</id>
       <build>
         <plugins>
@@ -315,6 +269,9 @@
                 <app.name>${project.artifactId}</app.name>
               </systemPropertyVariables>
               <classesDirectory>${project.build.directory}/${project.build.finalName}.${project.packaging}.original</classesDirectory>
+              <includes>
+                <include>**/*OpenShiftIT.class</include>
+              </includes>
             </configuration>
             <executions>
               <execution>

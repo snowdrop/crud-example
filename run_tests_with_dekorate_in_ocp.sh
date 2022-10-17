@@ -7,5 +7,5 @@ if [[ $(waitFor "my-database" "app") -eq 1 ]] ; then
   exit 1
 fi
 
-# Run OpenShift Tests
+# Run Tests
 eval "./mvnw -s .github/mvn-settings.xml clean verify -Popenshift,openshift-it $@"
