@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 CONTAINER_REGISTRY=${1:-localhost:5000}
-K8S_NAMESPACE=${2:-helm}
+K8S_NAMESPACE=${2:-genhelm}
 
 source scripts/waitFor.sh
 oc project $K8S_NAMESPACE
 
 # Build
-./mvnw -s .github/mvn-settings.xml clean package
+./mvnw -s .github/mvn-settings.xml clean package -Pkubernetes,helm -DskipTests -Ddekorate.options.properties-profile=helm
 
 # Create docker image and tag it in registry
-IMAGE=crud:latest
+IMAGE=crud:genhelm
 docker build . -t $IMAGE
 docker tag $IMAGE $CONTAINER_REGISTRY/$IMAGE
 docker push $CONTAINER_REGISTRY/$IMAGE
 
-helm install crud ./helm --set app.docker.image=$CONTAINER_REGISTRY/$IMAGE -n $K8S_NAMESPACE
-if [[ $(waitFor "crud" "app") -eq 1 ]] ; then
+helm install crud ./target/classes/META-INF/dekorate/helm/crud --set app.image=$CONTAINER_REGISTRY/$IMAGE -n $K8S_NAMESPACE --dependency-update
+if [[ $(waitFor "crud" "app.kubernetes.io/name") -eq 1 ]] ; then
   echo "Application failed to deploy. Aborting"
   exit 1
 fi
