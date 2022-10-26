@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
  Copyright 2016-2017 Red Hat, Inc, and individual contributors.
 
@@ -13,12 +13,11 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>dev.snowdrop.example</groupId>
   <artifactId>crud</artifactId>
-  <version>2.7.2-4</version>
+  <version>2.7.2-4-redhat</version>
   <name>Spring Boot - CRUD Example</name>
   <description>Spring Boot - CRUD Example</description>
   <properties>
@@ -29,12 +28,12 @@
     <postgresql.version>42.4.1</postgresql.version>
     <spring-boot.version>2.7.2</spring-boot.version>
     
-    <dekorate.version>2.11.3</dekorate.version>
+    <dekorate.version>2.11.2.redhat-00002</dekorate.version>
 
     <!-- Overridden from Spring Boot -->
-    <hibernate.version>5.6.10.Final</hibernate.version>
-    <hibernate-validator.version>6.2.3.Final</hibernate-validator.version>
-    <tomcat.version>9.0.65</tomcat.version>
+    <hibernate.version>5.3.28.Final-redhat-00001</hibernate.version>
+    <hibernate-validator.version>6.0.23.Final-redhat-00001</hibernate-validator.version>
+    <tomcat.version>9.0.50.redhat-00004</tomcat.version>
   </properties>
   
   <licenses>
