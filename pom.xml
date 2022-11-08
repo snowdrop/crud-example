@@ -28,7 +28,7 @@
     <postgresql.version>42.4.1</postgresql.version>
     <spring-boot.version>2.7.2</spring-boot.version>
     
-    <dekorate.version>2.11.4</dekorate.version>
+    <dekorate.version>2.11.5</dekorate.version>
 
     <!-- Overridden from Spring Boot -->
     <hibernate.version>5.6.10.Final</hibernate.version>
