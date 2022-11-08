@@ -88,7 +88,6 @@ version as a `-D<variable property name>=value` parameter. For instance overridi
 ./run_tests_with_dekorate_in_ocp.sh -Dspring-boot.version=2.7.3 -Ddekorate.version=2.11.1
 ```
 
-
 ## Running Tests on OpenShift using S2i from Source
 
 ```
