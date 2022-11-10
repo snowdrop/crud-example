@@ -35,6 +35,13 @@ items:
           volumeMounts:
             - mountPath: /var/lib/pgsql/data
               name: my-database-volume-1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+            runAsNonRoot: true
         volumes:
         - emptyDir: {}
           name: my-database-volume-1
