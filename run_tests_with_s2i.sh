@@ -3,9 +3,12 @@
 #   . --repository-url
 #   . --branch-to-test
 #   . --maven-settings
+#   . --ocp-database-file
+UNMANAGED_PARAMS=""
 SOURCE_REPOSITORY_URL="https://github.com/snowdrop/crud-example"
 SOURCE_REPOSITORY_REF="sb-2.7.x"
 MAVEN_SETTINGS_REF=""
+OCP_DATABASE_FILE=".openshiftio/database.yaml"
 
 while [ $# -gt 0 ]; do
   if [[ $1 == *"--"* ]]; then
@@ -14,7 +17,13 @@ while [ $# -gt 0 ]; do
       --repository-url) SOURCE_REPOSITORY_URL="$2";;
       --branch-to-test) SOURCE_REPOSITORY_REF="$2";;
       --maven-settings) MAVEN_SETTINGS_REF="-s $2";;
+      --ocp-database-file) OCP_DATABASE_FILE="$2";;
+      *) UNMANAGED_PARAMS="${UNMANAGED_PARAMS} $1 $2";;
     esac;
+    shift
+  elif [[ $1 == "-D"* ]];
+  then
+    UNMANAGED_PARAMS="${UNMANAGED_PARAMS} $1";
   fi
   shift
 done
@@ -22,7 +31,7 @@ done
 source scripts/waitFor.sh
 
 # deploy database
-oc create -f .openshiftio/database.yaml
+oc create -f ${OCP_DATABASE_FILE}
 if [[ $(waitFor "my-database" "app") -eq 1 ]] ; then
   echo "Database failed to deploy. Aborting"
   exit 1
@@ -37,4 +46,4 @@ if [[ $(waitFor "crud" "app") -eq 1 ]] ; then
 fi
 
 # Run Tests
-eval "./mvnw ${MAVEN_SETTINGS_REF} clean verify -Popenshift,openshift-it -Dunmanaged-test=true"
+eval "./mvnw ${MAVEN_SETTINGS_REF} clean verify -Popenshift,openshift-it -Dunmanaged-test=true ${UNMANAGED_PARAMS}"

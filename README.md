@@ -26,6 +26,8 @@ Before deploying the application using Dekorate, make sure you have deployed the
 oc create -f .openshiftio/database.yaml
 ```
 
+> :warning: **If you are using OCP 4.6** use the `.openshiftio/database-4.6.yaml` file instead.
+
 Once the database is up and running, we can deploy the application using Dekorate:
 
 ```bash
@@ -81,6 +83,8 @@ helm uninstall crud
 ./run_tests_with_dekorate_in_ocp.sh
 ```
 
+> :warning: **If you are using OCP 4.6** applying the `--ocp-database-file ".openshiftio/database-4.6.yaml"` parameter.
+
 Alternatively, tests can be executed against a specific Spring Boot or Dekorate version by passing the
 version as a `-D<variable property name>=value` parameter. For instance overriding both the Spring Boot and the Dekorate versions using their corresponding version properties is done the following way:
 
@@ -94,14 +98,20 @@ version as a `-D<variable property name>=value` parameter. For instance overridi
 ./run_tests_with_s2i.sh
 ```
 
-This script can take up to 3 parameters which are:
+> :warning: **If you are using OCP 4.6** apply the `--ocp-database-file=".openshiftio/database-4.6.yaml"` parameter.
+
+This script can take up to 4 parameters which are:
 
 * `--repository-url`: repository to use to source the images from
 * `--branch-to-test`: branch to use to source the images from
 * `--maven-settings`: custom maven settings file
+* `--ocp-database-file`: custom database `yaml` file (e.g. `--ocp-database-file ".openshiftio/database-4.6.yaml"`)
 
 ```bash
-./run_tests_with_s2i.sh --repository-url "https://github.com/snowdrop/crud-example" --branch-to-test branch-to-test --maven-settings "${HOME}/.m2/my-custom-maven-settings.xml"
+./run_tests_with_s2i.sh --repository-url "https://github.com/snowdrop/crud-example" \
+  --branch-to-test branch-to-test \
+  --maven-settings "${HOME}/.m2/my-custom-maven-settings.xml" \
+  --ocp-database-file ".openshiftio/database-4.6.yaml"
 ```
 
 ## Running Tests on OpenShift using Helm
