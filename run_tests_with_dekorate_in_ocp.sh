@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 UNMANAGED_PARAMS=""
-MAVEN_SETTINGS_REF=""
 OCP_DATABASE_FILE=".openshiftio/database.yaml"
 
 while [ $# -gt 0 ]; do
@@ -9,7 +8,6 @@ while [ $# -gt 0 ]; do
     param="${1/--/}";
     case $1 in
       --ocp-database-file) OCP_DATABASE_FILE="$2";;
-      --maven-settings) MAVEN_SETTINGS_REF="-s $2";;
       *) UNMANAGED_PARAMS="${UNMANAGED_PARAMS} $1 $2";;
     esac;
     shift
