@@ -100,7 +100,7 @@ version as a `-D<variable property name>=value` parameter. For instance overridi
 
 > :warning: **If you are using OCP 4.6** apply the `--ocp-database-file=".openshiftio/database-4.6.yaml"` parameter.
 
-This script can take up to 4 parameters which are:
+This script can take the following parameters:
 
 * `--repository-url`: repository to use to source the images from
 * `--branch-to-test`: branch to use to source the images from
