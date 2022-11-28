@@ -105,7 +105,6 @@ This script can take the following parameters:
 * `--repository-url`: repository to use to source the images from
 * `--branch-to-test`: branch to use to source the images from
 * `--maven-settings`: custom maven settings file
-* `--maven-args-append`: other Maven args
 * `--ocp-database-file`: custom database `yaml` file (e.g. `--ocp-database-file ".openshiftio/database-4.6.yaml"`)
 
 ```bash
