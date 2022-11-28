@@ -4,12 +4,14 @@
 #   . --branch-to-test
 #   . --maven-settings
 #   . --maven-mirror-url
+#   . --maven-args-append
 #   . --ocp-database-file
 UNMANAGED_PARAMS=""
 SOURCE_REPOSITORY_URL="https://github.com/snowdrop/crud-example"
 SOURCE_REPOSITORY_REF="sb-2.7.x"
 MAVEN_SETTINGS_REF=""
 MAVEN_MIRROR_URL=""
+MAVEN_ARGS_APPEND=""
 OCP_DATABASE_FILE=".openshiftio/database.yaml"
 
 while [ $# -gt 0 ]; do
@@ -20,6 +22,7 @@ while [ $# -gt 0 ]; do
       --branch-to-test) SOURCE_REPOSITORY_REF="$2";;
       --maven-settings) MAVEN_SETTINGS_REF="-s $2";;
       --maven-mirror-url) MAVEN_MIRROR_URL="$2";;
+      --maven-args-append) MAVEN_ARGS_APPEND="$2";;
       --ocp-database-file) OCP_DATABASE_FILE="$2";;
       *) UNMANAGED_PARAMS="${UNMANAGED_PARAMS} $1 $2";;
     esac;
@@ -42,7 +45,8 @@ fi
 
 # deploy application
 oc create -f .openshiftio/application.yaml
-oc new-app --template=crud -p SOURCE_REPOSITORY_URL=$SOURCE_REPOSITORY_URL -p SOURCE_REPOSITORY_REF=$SOURCE_REPOSITORY_REF -p MAVEN_MIRROR_URL=$MAVEN_MIRROR_URL
+oc new-app --template=crud -p SOURCE_REPOSITORY_URL=$SOURCE_REPOSITORY_URL -p SOURCE_REPOSITORY_REF=$SOURCE_REPOSITORY_REF \
+  -p MAVEN_MIRROR_URL=$MAVEN_MIRROR_URL -p MAVEN_ARGS_APPEND="$MAVEN_ARGS_APPEND"
 if [[ $(waitFor "crud" "app") -eq 1 ]] ; then
   echo "Application failed to deploy. Aborting"
   exit 1
