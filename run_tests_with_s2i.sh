@@ -4,7 +4,6 @@
 #   . --branch-to-test
 #   . --maven-settings
 #   . --maven-mirror-url
-#   . --maven-args-append
 #   . --ocp-database-file
 UNMANAGED_PARAMS=""
 SOURCE_REPOSITORY_URL="https://github.com/snowdrop/crud-example"
