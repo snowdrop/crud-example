@@ -17,7 +17,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dev.snowdrop.example</groupId>
   <artifactId>crud</artifactId>
-  <version>2.7.11-1-redhat</version>
+  <version>2.7.11-2-SNAPSHOT</version>
   <name>Spring Boot - CRUD Example</name>
   <description>Spring Boot - CRUD Example</description>
   <properties>
@@ -28,12 +28,12 @@
     <postgresql.version>42.4.1</postgresql.version>
     <spring-boot.version>2.7.11</spring-boot.version>
     
-    <dekorate.version>2.11.5.redhat-00008</dekorate.version>
+    <dekorate.version>2.11.6</dekorate.version>
 
     <!-- Overridden from Spring Boot -->
-    <hibernate.version>5.3.28.Final-redhat-00001</hibernate.version>
-    <hibernate-validator.version>6.0.23.Final-redhat-00001</hibernate-validator.version>
-    <tomcat.version>9.0.62.redhat-00005</tomcat.version>
+    <hibernate.version>5.6.15.Final</hibernate.version>
+    <hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
+    <tomcat.version>9.0.74</tomcat.version>
   </properties>
   
   <licenses>
