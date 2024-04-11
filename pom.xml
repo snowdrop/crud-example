@@ -33,7 +33,7 @@
     <!-- Overridden from Spring Boot -->
     <hibernate.version>5.6.15.Final</hibernate.version>
     <hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
-    <tomcat.version>9.0.83</tomcat.version>
+    <tomcat.version>9.0.86</tomcat.version>
   </properties>
   
   <licenses>
